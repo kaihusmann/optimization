@@ -4,7 +4,11 @@
 using namespace std;  // only needed for system output
 using namespace Rcpp;
 
-
+// [[Rcpp::export]]
+NumericVector func (NumericVector para, Function fun) {
+  NumericVector ret = fun(para);
+  return ret[0];
+}
 
 // [[Rcpp::export]]
 List main_loop (double temp, double t_min, double r, int fun_length, int nlimit, NumericVector para_0, NumericVector para_i, Function var_func, NumericVector rf, NumericVector lower, NumericVector upper, Function fun, double loss_0, double k, double loss_opt, NumericVector para_opt, bool dyn_rf, double maxgood, double ac_acc, int stopac) {
@@ -53,7 +57,8 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
       }
 
       // Calculate the result of the loss function at recent parameter combination.
-      NumericVector loss_i_temp = fun(para_i);
+      //NumericVector loss_i_temp = fun(para_i);
+      NumericVector loss_i_temp = func(para_i, fun);
       double loss_i = loss_i_temp[0];
       double delta = loss_i - loss_0;
 
