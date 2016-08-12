@@ -167,6 +167,8 @@ optim_sa <- function (fun, start, maximization = FALSE, trace = FALSE ,lower, up
               stopac = stopac,
               package = 'optimization')
 
+## The following code is now written in Cpp and therefore not necessary any more ##
+
 #   if (! maximization) {
 #     ## Minimization ##
 #     while (temp > t_min) { # Outer while loop, number of repeatitions depends on cooling function.
