@@ -5,18 +5,6 @@
 
 using namespace Rcpp;
 
-// func
-NumericVector func(NumericVector para, Function fun);
-RcppExport SEXP optimization_func(SEXP paraSEXP, SEXP funSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< NumericVector >::type para(paraSEXP);
-    Rcpp::traits::input_parameter< Function >::type fun(funSEXP);
-    __result = Rcpp::wrap(func(para, fun));
-    return __result;
-END_RCPP
-}
 // main_loop
 List main_loop(double temp, double t_min, double r, int fun_length, int nlimit, NumericVector para_0, NumericVector para_i, Function var_func, NumericVector rf, NumericVector lower, NumericVector upper, Function fun, double loss_0, double k, double loss_opt, NumericVector para_opt, bool dyn_rf, double maxgood, double ac_acc, int stopac);
 RcppExport SEXP optimization_main_loop(SEXP tempSEXP, SEXP t_minSEXP, SEXP rSEXP, SEXP fun_lengthSEXP, SEXP nlimitSEXP, SEXP para_0SEXP, SEXP para_iSEXP, SEXP var_funcSEXP, SEXP rfSEXP, SEXP lowerSEXP, SEXP upperSEXP, SEXP funSEXP, SEXP loss_0SEXP, SEXP kSEXP, SEXP loss_optSEXP, SEXP para_optSEXP, SEXP dyn_rfSEXP, SEXP maxgoodSEXP, SEXP ac_accSEXP, SEXP stopacSEXP) {

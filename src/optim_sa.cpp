@@ -4,10 +4,10 @@
 using namespace std;  // only needed for system output
 using namespace Rcpp;
 
-// [[Rcpp::export]]
+
 NumericVector func (NumericVector para, Function fun) {
-  NumericVector ret = fun(para);
-  return ret[0];
+  NumericVector loss_i_temp = fun(para);
+  return loss_i_temp;
 }
 
 // [[Rcpp::export]]
@@ -61,8 +61,6 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
       NumericVector loss_i_temp = func(para_i, fun);
       double loss_i = loss_i_temp[0];
       double delta = loss_i - loss_0;
-
-
       // Check, if the loss has improved
       if (delta < 0){
         loss_0 = loss_i;
