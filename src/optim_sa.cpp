@@ -9,15 +9,26 @@ NumericVector func (NumericVector para, Function fun) {
   NumericVector loss_i_temp = fun(para);
   return loss_i_temp;
 }
+// [[Rcpp::export]]
+NumericVector var_funcc (NumericVector para_0, int fun_length, NumericVector rf) {
+  NumericVector ret_var_func(fun_length);
+  for(int i = 0; i < (fun_length); i++) {
+    ret_var_func[i] = para_0[i] + R::runif(0.00000000001, rf[i]) * ((R::rbinom(1, 0.5) * -2) + 1);
+  }
+
+  // ret_var_func <- para_0 + runif(fun_length, 0.000001, rf) *  ((rbinom(fun_length, 1, 0.5) * -2) + 1)
+  return ret_var_func;
+}
 
 // [[Rcpp::export]]
-List main_loop (double temp, double t_min, double r, int fun_length, int nlimit, NumericVector para_0, NumericVector para_i, Function var_func, NumericVector rf, NumericVector lower, NumericVector upper, Function fun, double loss_0, double k, double loss_opt, NumericVector para_opt, bool dyn_rf, double maxgood, double ac_acc, int stopac) {
+List main_loop (double temp, double t_min, double r, int fun_length, int nlimit, NumericVector para_0, NumericVector para_i, Function var_func, bool vf_user, NumericVector rf, NumericVector lower, NumericVector upper, Function fun, double loss_0, double k, double loss_opt, NumericVector para_opt, bool dyn_rf, double maxgood, double ac_acc, int stopac) {
   // Initializating variables outside the while loop
   IntegerVector n_oob(fun_length);
   int n_outer = 0;
   int savei = 0;
   double savet = 0;
   int ac = 0;
+
   // The outer while loop: Number of repeatitions depends on cooling function and the temp. limit.
   while (temp > t_min){
 
@@ -32,8 +43,11 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
     for (int i = 0; i < nlimit; i++) { // Inner loop, no. of repeatitions depends on the break criteria or on nlimit if no break criterion stops the loop.
 
       n_inner++;
-      para_i = var_func(para_0, fun_length, rf); // Variation of the parameters. Dieser Aufruf einer R Funktion verdoppelt die Laufzeit des Algorithmus, sollte noch irgendwie veraendert werden
-
+      if(!vf_user){ // Variation of the parameters.
+        para_i = var_funcc(para_0, fun_length, rf); // By the default function
+      } else {
+        para_i = var_func(para_0, fun_length, rf); // By a user declared function. This is an SEXP. The algorithm is therefore much slower with it.
+      }
 
 
       // Changing the parameters
