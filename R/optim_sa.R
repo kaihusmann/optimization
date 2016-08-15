@@ -72,6 +72,7 @@ optim_sa <- function (fun, start, maximization = FALSE, trace = FALSE ,lower, up
   n_inner      <- 0 # Counter vector for the inner loop (necessary since the inner loop has stop criteria and is not always of length 'nlimit').
   n_oob        <- rep(0, fun_length) # Counter vector for parameters out of bounds after changing function.
   ratio_noob   <- rep(0, fun_length) # Ratio between iterations of parameters NOT out of bounds and total number of iterations in the inner loop.
+  vf_user      <- FALSE # Bool variable: Is there a user declared variance function?
 
   ifelse(maximization, loss_opt <- -Inf, loss_opt <- +Inf)
   if (trace) {
@@ -107,11 +108,13 @@ optim_sa <- function (fun, start, maximization = FALSE, trace = FALSE ,lower, up
 
   if (mode(vf) == "function") {
     var_func <- vf
+    vf_user <- TRUE
   } else {
-    var_func <- function (para_0, fun_length, rf) {
-      ret_var_func <- para_0 + runif(fun_length, 0.000001, rf) *  ((rbinom(fun_length, 1, 0.5) * -2) + 1)
-      return (ret_var_func)
-      }
+    #var_func <- function() {}
+     var_func <- function (para_0, fun_length, rf) {
+       ret_var_func <- para_0 + runif(fun_length, 0.000001, rf) *  ((rbinom(fun_length, 1, 0.5) * -2) + 1)
+       return (ret_var_func)
+       }
   }
 
   if (r >=1) {
@@ -156,6 +159,7 @@ optim_sa <- function (fun, start, maximization = FALSE, trace = FALSE ,lower, up
               para_0 = para_0,
               para_i = para_i,
               var_func = var_func,
+              vf_user = vf_user,
               rf = rf,
               lower = lower,
               upper = upper,
