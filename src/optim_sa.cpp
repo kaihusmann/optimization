@@ -4,6 +4,11 @@
 using namespace std;  // only needed for system output
 using namespace Rcpp;
 
+// [[Rcpp::export]]
+double cfun (double x, double y) {
+  return ( ( x * x + y - 11.0 ) * ( x * x + y - 11.0 )
+             + ( x + y * y - 7.0 ) * ( x + y * y - 7.0 ) );
+}
 
 
 // [[Rcpp::export]]
@@ -14,6 +19,10 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
   int savei = 0;
   double savet = 0;
   int ac = 0;
+
+  // Test: Write the loss function explicit as an equation
+
+
   // The outer while loop: Number of repeatitions depends on cooling function and the temp. limit.
   while (temp > t_min){
 
@@ -53,7 +62,11 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
       }
 
       // Calculate the result of the loss function at recent parameter combination.
-      NumericVector loss_i_temp = fun(para_i);
+      // NumericVector loss_i_temp = fun(para_i); // Must be a vector for technical reasons (in rcpp)
+
+      double x = para_i[0]; double y = para_i[1];
+      NumericVector loss_i_temp = cfun(x, y);
+
       double loss_i = loss_i_temp[0];
       double delta = loss_i - loss_0;
 
@@ -108,8 +121,8 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
 
       }
 
-      // Downscaling of the rf makes the algorithm more precise and efficient (Pronzato et al. 1984)
-      // Could be relativr instead of 5
+      // Downscaling of the rf makes the algorithm more efficient (Pronzato et al. 1984)
+      // Could be relative instead of 5
       NumericVector ds (n_oob.size());
       for(int i = 0; i < n_oob.size(); i++){
         if (n_outer <= 5) {

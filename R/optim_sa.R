@@ -139,9 +139,12 @@ optim_sa <- function (fun, start, maximization = FALSE, trace = FALSE ,lower, up
   # If ac_acc is not initialized by user, it will be stated relatively to the dimension of the initial y.
   if (is.na (ac_acc)) {ac_acc <- fun(start) / 10000}
 
+
   #----------------#
   ## Optimization ##
   #----------------#
+  # Create an environment for sharing data between R and C
+  #sa.env <- new.env(hash = TRUE, parent = emptyenv())
 
   # Calling the Cpp source
   result <- .Call('optimization_main_loop',
