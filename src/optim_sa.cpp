@@ -2,7 +2,6 @@
 #include <math.h>
 #include <iostream> // only needed for system output
 #include <vector>
-#include <array>
 using namespace std;
 using namespace Rcpp;
 
@@ -132,7 +131,7 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
         row.push_back((double)para_0[k]);
       }
       trace_para.push_back(row);
-      row.erase (row.begin(), row.end());
+      row.erase (row.begin(),row.end());
 
       trace_n_inner.push_back(n_inner);
       trace_temp.push_back(temp);
