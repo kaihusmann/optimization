@@ -30,13 +30,13 @@ optim_sa <- function (fun, start, maximization = FALSE, trace = FALSE ,lower, up
     vf      = NULL,
     rf      = 1,
     dyn_rf  = TRUE,
-    t0      = 10000,
-    nlimit  = 1000,
-    r       = 0.9,
+    t0      = 1000,
+    nlimit  = 100,
+    r       = 0.6,
     k       = 1,
-    t_min   = 0.01,
+    t_min   = 0.1,
     maxgood = 100,
-    stopac  = 300,
+    stopac  = 30,
     ac_acc  = NA
   )
   corr_names <- names(con) # Saving the correct names for later consistency checks.
@@ -179,18 +179,19 @@ optim_sa <- function (fun, start, maximization = FALSE, trace = FALSE ,lower, up
   ## Postprocessing and output generation ##
   #----------------------------------------#
 
-  status_message <- tryCatch (data.frame(iteration = result[["savei"]], function_value = round(result[["loss_opt"]], 5), t(round(result[["para_opt"]], 5)), temperature = round(result[["savet"]], 5)),
-    error = function (e) {
-      warning ("Algorithm did not converge. Try different random factor or staring values.", call. = FALSE)
-      return (data.frame(iteration = NA, temp = NA, y = NA, t(rep(NA, fun_length))))
-    }
-    )
-
-  if (!is.na(status_message$iteration)) {
-    cat("Algorithm converged.\n")
-    # names(status_message)[3 : (2 + fun_length)] <- paste("x", c(1 : fun_length), sep = "_")
-    # print(data.frame(status_message, row.names = ""),digits = 3)
-  }
+  # status_message <- tryCatch (data.frame(iteration = result[["savei"]], function_value = round(result[["loss_opt"]], 5), t(round(result[["para_opt"]], 5)), temperature = round(result[["savet"]], 5)),
+  #   error = function (e) {
+  #     warning ("Algorithm did not converge. Try different random factor or staring values.", call. = FALSE)
+  #     return (NULL)
+  #   }
+  #   )
+  #
+  # if (!is.na(status_message$iteration)) {
+  #   # cat("Algorithm converged.\n")
+  #   # names(status_message)[3 : (2 + fun_length)] <- paste("x", c(1 : fun_length), sep = "_")
+  #   # print(data.frame(status_message, row.names = ""),digits = 3)
+  # }
+  #
   if(trace) {
     df_para <- t(as.data.frame(result[["para"]]))
     rownames(df_para) <- NULL
