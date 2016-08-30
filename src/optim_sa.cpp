@@ -1,14 +1,11 @@
 #include <Rcpp.h>
 #include <math.h>
 #include <iostream> // only needed for system output
-using namespace std;  // only needed for system output
+#include <vector>
+#include <array>
+using namespace std;
 using namespace Rcpp;
 
-// [[Rcpp::export]]
-double cfun (double x, double y) {
-  return ( ( x * x + y - 11.0 ) * ( x * x + y - 11.0 )
-             + ( x + y * y - 7.0 ) * ( x + y * y - 7.0 ) );
-}
 
 NumericVector func (NumericVector para, Function fun) {
   NumericVector loss_i_temp = fun(para);
@@ -21,26 +18,33 @@ NumericVector var_funcc (NumericVector para_0, int fun_length, NumericVector rf)
   for(int k = 0; k < (fun_length); k++) {
     ret_var_func[k] = para_0[k] + R::runif(0.00000000001, rf[k]) * ((R::rbinom(1, 0.5) * -2) + 1);
   }
-
-  // ret_var_func <- para_0 + runif(fun_length, 0.000001, rf) *  ((rbinom(fun_length, 1, 0.5) * -2) + 1)
   return ret_var_func;
 }
 
 // [[Rcpp::export]]
-List main_loop (double temp, double t_min, double r, int fun_length, int nlimit, NumericVector para_0, NumericVector para_i, Function var_func, bool vf_user, NumericVector rf, NumericVector lower, NumericVector upper, Function fun, double loss_0, double k, double loss_opt, NumericVector para_opt, bool dyn_rf, double maxgood, double ac_acc, int stopac) {
-  // Initializating variables outside the while loop
+List main_loop (double temp, double t_min, double r, int fun_length, int nlimit, NumericVector para_0, NumericVector para_i, Function var_func, bool vf_user, bool trace, NumericVector rf, NumericVector lower, NumericVector upper, Function fun, double loss_0, double k, double loss_opt, NumericVector para_opt, bool dyn_rf, double maxgood, double ac_acc, int stopac) {
+  // Initializating variables
   IntegerVector n_oob(fun_length);
   int n_outer = 0;
   int savei = 0;
   double savet = 0;
   int ac = 0;
+  double loss_i = 0;
+  // Init trace
+  vector<int> trace_n_outer;
+  vector<double> trace_loss;
+  vector<double> row;
+  vector< vector<double> > trace_para;
+  vector<int> trace_n_inner;
+  vector<double> trace_temp;
+  vector<int> trace_goodcounter;
 
 
   // The outer while loop: Number of repeatitions depends on cooling function and the temp. limit.
   while (temp > t_min){
 
 
-    // Initializing and resetting variables
+    // Initializing and resetting variables inside the while loop
     int goodcounter = 0;
     int n_inner = 0;
     n_outer++;
@@ -86,18 +90,10 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
 
       }
 
-      // Calculate the result of the loss function at recent parameter combination.
-
-      // NumericVector loss_i_temp = fun(para_i); // Must be a vector for technical reasons (in rcpp)
-
-      //double x = para_i[0]; double y = para_i[1];
-      //NumericVector loss_i_temp = cfun(x, y);
-
-
       //NumericVector loss_i_temp = fun(para_i);
-      NumericVector loss_i_temp = func(para_i, fun); // TBD: If simple function: C Function not SEXP
+      NumericVector loss_i_temp = func(para_i, fun);
 
-      double loss_i = loss_i_temp[0];
+      loss_i = loss_i_temp[0];
       double delta = loss_i - loss_0;
       // Check, if the loss has improved
       if (delta < 0){
@@ -128,10 +124,22 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
     if (ac > stopac){break;}
     } // End of the inner loop.
 
+    if(trace) {
+      trace_n_outer.push_back(n_outer);
+      trace_loss.push_back(loss_0);
+
+      for(k = 0; k < fun_length; k++) {
+        row.push_back((double)para_0[k]);
+      }
+      trace_para.push_back(row);
+      row.erase (row.begin(), row.end());
+
+      trace_n_inner.push_back(n_inner);
+      trace_temp.push_back(temp);
+      trace_goodcounter.push_back(goodcounter);
+    }
 
     temp = temp * r; // Temperature reduction.
-
-    // Trace could be inserted here.
 
     // Calculation of rf for the next iteration step according to the ratio of random values out of bounds (Corana et al. 1987).
     if (dyn_rf == true){
@@ -173,12 +181,20 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
 
 
   }
-  NumericMatrix trace_array (4, 4);
+
+
   List ret;
   ret["savei"] = savei;
   ret["savet"] = savet;
   ret["loss_opt"] = loss_opt;
   ret["para_opt"] = para_opt;
+  ret["n_outer"] = trace_n_outer;
+  ret["loss"] = trace_loss;
+  ret["para"] = trace_para;
+  ret["n_inner"] = trace_n_inner;
+  ret["temp"] = trace_temp;
+  ret["goodcounter"] = trace_goodcounter;
+
 
   return ret;
 }
