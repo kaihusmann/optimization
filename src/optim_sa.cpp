@@ -37,6 +37,8 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
   vector<int> trace_n_inner;
   vector<double> trace_temp;
   vector<int> trace_goodcounter;
+  vector<double> row_rf;
+  vector< vector<double> > trace_rf;
 
 
   // The outer while loop: Number of repeatitions depends on cooling function and the temp. limit.
@@ -129,13 +131,15 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
 
       for(k = 0; k < fun_length; k++) {
         row.push_back((double)para_0[k]);
+        row_rf.push_back((double)rf[k]);
       }
       trace_para.push_back(row);
-      row.erase (row.begin(),row.end());
-
+      row.erase (row.begin(), row.end());
       trace_n_inner.push_back(n_inner);
       trace_temp.push_back(temp);
       trace_goodcounter.push_back(goodcounter);
+      trace_rf.push_back(row_rf);
+      row_rf.erase (row_rf.begin(), row_rf.end());
     }
 
     temp = temp * r; // Temperature reduction.
@@ -193,7 +197,7 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
   ret["n_inner"] = trace_n_inner;
   ret["temp"] = trace_temp;
   ret["goodcounter"] = trace_goodcounter;
-
+  ret["rf"] = trace_rf;
 
   return ret;
 }

@@ -194,9 +194,10 @@ optim_sa <- function (fun, start, maximization = FALSE, trace = FALSE ,lower, up
   #
   if(trace) {
     df_para <- t(as.data.frame(result[["para"]]))
-    rownames(df_para) <- NULL
-    trace_array <- cbind(result[["n_outer"]], result[["loss"]], df_para, result[["n_inner"]], result[["temp"]], result[["goodcounter"]])
-    colnames(trace_array) <- c("n_outer", "loss", paste("x", c(1 : fun_length), sep = "_"), "n_inner", "temperature", "goodcounter")
+    df_rf <- t(as.data.frame(result["rf"]))
+    rownames(df_para) <- NULL; rownames(df_rf) <- NULL
+    trace_array <- cbind(result[["n_outer"]], result[["loss"]], df_para, result[["n_inner"]], result[["temp"]], result[["goodcounter"]], df_rf)
+    colnames(trace_array) <- c("n_outer", "loss", paste("x", c(1 : fun_length), sep = "_"), "n_inner", "temperature", "goodcounter", paste("rf", c(1 : fun_length), sep = "_"))
   } else {
     trace_array <- NULL
   }
