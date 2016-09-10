@@ -22,7 +22,7 @@
 # Starting the Algorithm #
 #------------------------#
 
-optim_nm_n <- function(fun, k = 0, start, maximum = FALSE, trace = FALSE, alpha = 1, beta = 2,
+optim_nm <- function(fun, k = 0, start, maximum = FALSE, trace = FALSE, alpha = 1, beta = 2,
                        gamma = 1/2, delta = 1/2, tol = 0.00001, exit = 500, edge = 1, ...){
 
   # checking for inputs ----------------------------------------------------------------------
