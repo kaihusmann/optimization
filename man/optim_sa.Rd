@@ -46,10 +46,10 @@ optim_sa(fun, start, maximization = FALSE, trace = FALSE,
         Logical. It is sometimes useful to disable the dynamic \code{rf} changing. Especially when unimodal functions are solved.  As \code{rf} dynamics usually improve the performance as well as the accuracy it should be enabled when possible. Default is TRUE.
       }
       \item{\code{t0}}{
-        Numeric. Initial temperature. Default is 10000.
+        Numeric. Initial temperature. Default is 1000.
       }
       \item{\code{nlimit}}{
-        Integer. Maximum number of iterations of the inner loop. Default is 1000.
+        Integer. Maximum number of iterations of the inner loop. Default is 100.
       }
       \item{\code{r}}{
         Numeric. Temperature reduction in the outer loop. Default is 0.6.
@@ -58,13 +58,13 @@ optim_sa(fun, start, maximization = FALSE, trace = FALSE,
         Numeric. Boltzmann constant in the Metropolis function. Default is 1.
       }
       \item{\code{t_min}}{
-        Numeric. Limit temperature where the algorithm stops. Default is 0.01.
+        Numeric. Limit temperature where the algorithm stops. Default is 0.1.
       }
       \item{\code{maxgood}}{
         Integer. Break criterion to improve the algorithm performance. Maximum number of function value improvements in the inner loop. Breaks the inner loop and starts the next. Default is 100.
       }
       \item{\code{stopac}}{
-        Integer. Break criterion to improve the algorithm performance. Maximum number of repetitions where the function value improvement is less than a certain accuracy. Breaks the inner loop and starts the next. Default is 300.
+        Integer. Break criterion to improve the algorithm performance. Maximum number of repetitions where the function value improvement is less than a certain accuracy. Breaks the inner loop and starts the next. Default is 30.
       }
       \item{\code{ac_acc}}{
         Numeric. Accuracy of the \code{stopac} break criterion. Default is 1/10000 of the function value at initial parameter combination.

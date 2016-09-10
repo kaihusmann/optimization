@@ -7,7 +7,7 @@ plot.optim_nmsa <- function (object, type = "convergence", lower = NA, upper = N
   x <- object # the optim_nmsa object is saved in x
   par_save <- par(mar=c(3.5, 3.5, 1, 1) +0.1) # set graphical parametes
   if (is.null(x$trace)) {
-    stop ("No trace matrix found. Check if trace is activated")
+    stop ("No trace matrix found. Check if trace was activated")
   }
   
   #--------------------#
