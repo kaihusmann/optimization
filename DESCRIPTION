@@ -1,8 +1,8 @@
 Package: optimization
 Type: Package
 Title: Numerical Optimization
-Version: 1.0
-Date: 2016-01-15
+Version: 1.1
+Date: 2016-11-04
 Author: Kai Husmann and Alexander Lange
 Maintainer: Kai Husmann <kai.husmann@stud.uni-goettingen.de> and Alexander Lange <alexander.lange@stud.uni-goettingen.de>
 Description: Numerical Optimization with Nelder-Mead and Simulated Annealing algorithm.
