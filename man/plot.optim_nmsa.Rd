@@ -27,7 +27,7 @@ plot(x, type = 'convergence', lower = NA, upper = NA, ...)
   \item{...}{
   Additional arguments defined by the user.
   }
-  
+
 }
 
 \author{
@@ -39,11 +39,11 @@ Kai Husmann, Alexander Lange
 
 \examples{
 # Himmelblau's function
-hi <- function(x){(x[1]**2 + x[2] - 11)**2 + (x[1] + x[2]**2 -7)**2} 
+hi <- function(x){(x[1]**2 + x[2] - 11)**2 + (x[1] + x[2]**2 -7)**2}
 
 out_nm <- optim_nm(hi, k = 2, trace = TRUE)
-out_sa <- optim_sa(fun = hi, start = c(runif(2, min = -1, max = 1)), 
-                   trace = TRUE, lower = c(-4, -4) ,upper=c(4, 4), 
+out_sa <- optim_sa(fun = hi, start = c(runif(2, min = -1, max = 1)),
+                   trace = TRUE, lower = c(-4, -4) ,upper=c(4, 4),
                    control = list(t0 = 1000, nlimit = 1500,r = 0.8))
 
 # Visual inspection of algorithm behavior for Nelder-Mead.
