@@ -2,7 +2,7 @@
 #### Visualization  ####
 ##--------------------##
 
-plot.optim_nmsa <- function (object, type = "convergence", lower = NA, upper = NA) {
+plot.optim_nmsa <- function (object, type = "convergence", lower = NA, upper = NA, ...) {
 
   x <- object # the optim_nmsa object is saved in x
   par_save <- par(mar=c(3.5, 3.5, 1, 1) +0.1) # set graphical parametes
@@ -15,8 +15,8 @@ plot.optim_nmsa <- function (object, type = "convergence", lower = NA, upper = N
   #--------------------#
 
   if (type == "convergence") {
-    plot(x[[3]][, 2] ~ x[[3]][, 1],  type = "n", lwd = 2, axes = FALSE, # opens plot window only with title and axes labeling
-         main = "", xlab = "", ylab = "")
+    plot(x[[3]][, 1], x[[3]][, 2],  type = "n", lwd = 2, axes = FALSE, # opens plot window only with title and axes labeling
+         main = "", xlab = "", ylab = "", ...)
     a1 <- axis(1,  cex.axis = 0.9, lwd = 0, lwd.ticks = 1) # adds axes scaling manually according to the trace values
     a2 <- axis(2, cex.axis = 0.9, las = 1, lwd = 0, lwd.ticks = 1)
     mtext("function value", side = 2, line = 2.5, las= 3) ; mtext("number of iteration", side = 1, line = 2, las = 1)
@@ -71,9 +71,9 @@ plot.optim_nmsa <- function (object, type = "convergence", lower = NA, upper = N
 
     # Image creates the contour plot.
     if (requireNamespace('colorspace', quietly = TRUE)) {
-      image(x1, x2 , y, xlim = c(lower[1], upper[1]) ,ylim = c(lower[2], upper[2]), col = rev(colorspace::heat_hcl(500)), axes = F, ann = F)
+      image(x1, x2 , y, xlim = c(lower[1], upper[1]) ,ylim = c(lower[2], upper[2]), col = rev(colorspace::heat_hcl(500)), axes = F, ann = F, ...)
     } else {
-      image(x1, x2 , y, xlim = c(lower[1], upper[1]) ,ylim = c(lower[2], upper[2]), col = rev(heat.colors(500)), axes = F, ann = F)
+      image(x1, x2 , y, xlim = c(lower[1], upper[1]) ,ylim = c(lower[2], upper[2]), col = rev(heat.colors(500)), axes = F, ann = F, ...)
     }
 
 

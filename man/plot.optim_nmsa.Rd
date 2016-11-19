@@ -8,7 +8,7 @@ Plot method for objects of class "optim_nmsa"
 Creates convergence or contour plot for visual inspection of algorithm behavior.
 }
 \usage{
-\method{plot}{optim_nmsa}(object, type = 'convergence', lower = NA, upper = NA)
+\method{plot}{optim_nmsa}(object, type = 'convergence', lower = NA, upper = NA, ...)
 }
 \arguments{
   \item{object}{
@@ -24,9 +24,8 @@ Creates convergence or contour plot for visual inspection of algorithm behavior.
   Vector containing the upper limits for the plotting window. Only usable with type = 'contour'.
   }
   \item{...}{
-  Additional arguments defined by the user.
+  further arguments
   }
-
 }
 
 \author{
