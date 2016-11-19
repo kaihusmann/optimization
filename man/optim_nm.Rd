@@ -128,7 +128,7 @@ Alexander Lange
     100*(x[2]-x[1]^2)^2+(1-x[1])^2
   }
 
-##### minimization with an initial guess at c(-2.048, 2.048)
+##### Minimization with an initial guess at c(-2.048, 2.048)
   optim_nm(B, start = c(-2.048, 2.048))
 
 #####  Himmelblau's function
@@ -140,7 +140,7 @@ Alexander Lange
     (x[1]^2+x[2]-11)^2+(x[1]+x[2]^2-7)^2
   }
 
-##### minimization with defined number of parameters
+##### Minimization with defined number of parameters
   optim_nm(fun = H, k = 2)
 
 ##### Colville function with 4 parameters
@@ -162,7 +162,7 @@ Alexander Lange
 
   optim_nm(co, k = 4)
 
-#### minimization with trace
+#### Minimization with trace
   Output <- optim_nm(H, k = 2, trace = TRUE)
   plot(Output)
   plot(Output, 'contour')

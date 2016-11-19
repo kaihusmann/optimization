@@ -46,17 +46,10 @@ optim_sa(fun, start, maximization = FALSE, trace = FALSE,
         Logical. It is sometimes useful to disable the dynamic \code{rf} changing. Especially when unimodal functions are solved.  As \code{rf} dynamics usually improve the performance as well as the accuracy it should be enabled when possible. Default is TRUE.
       }
       \item{\code{t0}}{
-<<<<<<< HEAD
-        Numeric. Initial temperature. Default is 10000.
-      }
-      \item{\code{nlimit}}{
-        Integer. Maximum number of iterations of the inner loop. Default is 1000.
-=======
         Numeric. Initial temperature. Default is 1000.
       }
       \item{\code{nlimit}}{
         Integer. Maximum number of iterations of the inner loop. Default is 100.
->>>>>>> 4ca8218b1fd96bd4e1c0b092f3e53db9e0481ef0
       }
       \item{\code{r}}{
         Numeric. Temperature reduction in the outer loop. Default is 0.6.
@@ -65,21 +58,13 @@ optim_sa(fun, start, maximization = FALSE, trace = FALSE,
         Numeric. Boltzmann constant in the Metropolis function. Default is 1.
       }
       \item{\code{t_min}}{
-<<<<<<< HEAD
-        Numeric. Limit temperature where the algorithm stops. Default is 0.01.
-=======
         Numeric. Limit temperature where the algorithm stops. Default is 0.1.
->>>>>>> 4ca8218b1fd96bd4e1c0b092f3e53db9e0481ef0
       }
       \item{\code{maxgood}}{
         Integer. Break criterion to improve the algorithm performance. Maximum number of function value improvements in the inner loop. Breaks the inner loop and starts the next. Default is 100.
       }
       \item{\code{stopac}}{
-<<<<<<< HEAD
-        Integer. Break criterion to improve the algorithm performance. Maximum number of repetitions where the function value improvement is less than a certain accuracy. Breaks the inner loop and starts the next. Default is 300.
-=======
         Integer. Break criterion to improve the algorithm performance. Maximum number of repetitions where the function value improvement is less than a certain accuracy. Breaks the inner loop and starts the next. Default is 30.
->>>>>>> 4ca8218b1fd96bd4e1c0b092f3e53db9e0481ef0
       }
       \item{\code{ac_acc}}{
         Numeric. Accuracy of the \code{stopac} break criterion. Default is 1/10000 of the function value at initial parameter combination.
@@ -137,21 +122,40 @@ Kai Husmann
 }
 
 \examples{
-# Himmelblau's function
-hi <- function(x){(x[1]**2 + x[2] - 11)**2 + (x[1] + x[2]**2 -7)**2}
-# minimum at f(3, 2) = 0
- # f(-2.804, -3.131) = 0
- # f(-3.779, -3.283) = 0
- # f( 3.584, -1.848) = 0
+##### Rosenbrock function
+# minimum at f(1,1) = 0
+ro <- function(x){
+  100*(x[2]-x[1]^2)^2+(1-x[1])^2
+}
 
-# Random start values. Control arguments for relatively simple functions.
-out <- optim_sa(fun = hi, start = c(runif(2, min = -1, max = 1)),
-                trace = TRUE, lower = c(-4, -4) ,upper=c(4, 4),
-                control = list(t0 = 1000, nlimit = 1500, r = 0.8))
+# Random start values. Example arguments for the relatively simple Rosenbrock function.
+ro_sa <- optim_sa(fun = ro,
+                  start = c(runif(2, min = -1, max = 1)),
+                  lower = c(-5, -5),
+                  upper = c(5, 5),
+                  trace = TRUE,
+                  control = list(t0 = 10,
+                            nlimit = 250,
+                            t_min = 0.01,
+                            dyn_rf = FALSE,
+                            rf = 1,
+                            r = 0.6
+                  )
+         )
+
 
 # Visual inspection of algorithm behavior.
-plot(out)
-plot(out, type = 'contour')
+plot(ro_sa)
+plot(ro_sa, type = "contour")
+
+
+##### Holder table function
+
+# 4 minima at
+  #f(8.055, 9.665) = -19.2085
+  #f(-8.055, 9.665) = -19.2085
+  #f(8.055, -9.665) = -19.2085
+  #f(-8.055, -9.665) = -19.2085
 
 ho <- function(x){
   x1 <- x[1]
@@ -162,28 +166,51 @@ ho <- function(x){
   y <- -abs(fact1 * fact2)
 }
 
-# Control arguments for functions with medium complexity.
-x <- optim_sa(fun = ho, start = c(1, 1), lower = c(-10, -10),
-              upper = c(10, 10), trace = TRUE)
+# Random start values. Example arguments for the relatively complex Holder table function.
+optim_sa(fun = ho,
+         start = c(1, 1),
+         lower = c(-10, -10),
+         upper = c(10, 10),
+         trace = TRUE,
+         control = list(dyn_rf = FALSE,
+                        rf = 1.6,
+                        t0 = 10,
+                        nlimit = 200,
+                        r = 0.6,
+                        t_min = 0.01
+         )
+)
 
-co <- function(x){ # Colville function
-  x1 <- x[1]
-  x2 <- x[2]
-  x3 <- x[3]
-  x4 <- x[4]
+#### Himmelblau's function
+# 4 minima at
+  # f(3, 2) = 0
+  # f(-2.804, -3.131) = 0
+  # f(-3.779, -3.283) = 0
+  # f( 3.584, -1.848) = 0
 
-  term1 <- 100 * (x1^2 - x2)^2
-  term2 <- (x1 - 1)^2
-  term3 <- (x3-1)^2
-  term4 <- 90 * (x3^2 - x4)^2
-  term5 <- 10.1 * ((x2 - 1)^2 + (x4 - 1)^2)
-  term6 <- 19.8 * (x2 - 1)*(x4-1)
-
-  y <- term1 + term2 + term3 + term4 + term5 + term6
+hi <- function(x){
+  (x[1]**2 + x[2] - 11)**2 + (x[1] + x[2]**2 -7)**2
 }
 
-# Control arguments for relatively complex functions
-x <- optim_sa(fun = co, start = c(4, 4, 4, 4),lower = c(-5, -5, -5, -5),
-              trace = FALSE, upper = c(5, 5, 5, 5),
-              control = list(r = 0.999, nlimit = 50))
+# Random start values. Example arguments for integer programming.
+# Only the integer solution will be found.
+
+var_func_int <- function(para_0, fun_length, rf){
+  ret_var_func <- para_0 + sample.int(rf, fun_length, replace = TRUE) *
+  ((rbinom(fun_length, 1, 0.5) * -2) + 1)
+  return (ret_var_func)
+}
+
+optim_sa(fun = hi,
+         start = c(runif(2, min = -1, max = 1)),
+                trace = TRUE,
+                lower = c(-4, -4),
+                upper=c(4, 4),
+                control = list(t0 = 1000,
+                               nlimit = 1500,
+                               r = 0.8,
+                               vf = var_func_int,
+                               rf = 3
+                )
+)
 }
