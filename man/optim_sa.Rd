@@ -133,7 +133,7 @@ Kai Husmann
 }
 
 \seealso{
-\code{\link{optim_nm}}, \code{\link{optim}}, \code{\link{plot}}
+\code{\link{optim_nm}}, \code{\link{optim}}, \code{\link{plot.optim_nmsa}}
 }
 
 \examples{
