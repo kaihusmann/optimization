@@ -8,10 +8,10 @@ Plot method for objects of class "optim_nmsa"
 Creates convergence or contour plot for visual inspection of algorithm behavior.
 }
 \usage{
-\method{plot}{optim_nmsa}(object, type = 'convergence', lower = NA, upper = NA, ...)
+\method{plot}{optim_nmsa}(x, type = 'convergence', lower = NA, upper = NA, ...)
 }
 \arguments{
-  \item{object}{
+  \item{x}{
   Object of type 'nmsa' to be plotted. Trace is expected to be TRUE.
   }
   \item{type}{

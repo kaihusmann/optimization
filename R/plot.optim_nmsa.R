@@ -2,9 +2,8 @@
 #### Visualization  ####
 ##--------------------##
 
-plot.optim_nmsa <- function (object, type = "convergence", lower = NA, upper = NA, ...) {
+plot.optim_nmsa <- function (x, type = "convergence", lower = NA, upper = NA, ...) {
 
-  x <- object # the optim_nmsa object is saved in x
   par_save <- par(mar=c(3.5, 3.5, 1, 1) +0.1) # set graphical parametes
   if (is.null(x$trace)) {
     stop ("No trace matrix found. Check if trace was activated")
@@ -105,6 +104,7 @@ plot.optim_nmsa <- function (object, type = "convergence", lower = NA, upper = N
     points(x = x$par[1], y = x$par[2], pch = 8, cex = 1.2, lwd = 3, col = "white")
     points(x = x$par[1], y = x$par[2], pch = 8, cex = 1.2, lwd = 2)
   }
+
 
   par(par_save) # Restore the graphical parameters
 
