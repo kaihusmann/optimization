@@ -11,7 +11,6 @@ NumericVector func (NumericVector para, Function fun) {
   return loss_i_temp;
 }
 
-// [[Rcpp::export]]
 NumericVector var_funcc (NumericVector para_0, int fun_length, NumericVector rf) {
   NumericVector ret_var_func(fun_length);
   for(int k = 0; k < (fun_length); k++) {
