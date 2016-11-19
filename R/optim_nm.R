@@ -251,6 +251,7 @@ optim_nm <- function(fun, k = 0, start, maximum = FALSE, trace = FALSE, alpha = 
                    iterations = counter)
   )
 
-  class(output) <- append(class(output), "optim_nmsa")
+  #class(output) <- append(class(output), "optim_nmsa")
+  class(output) <- "optim_nmsa"
   return(output)
 }

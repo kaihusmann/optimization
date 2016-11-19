@@ -219,6 +219,7 @@ optim_sa <- function (fun, start, maximization = FALSE, trace = FALSE ,lower, up
                    )
                  )
 
-  class(output) <- append(class(output), "optim_nmsa")
+  #class(output) <- append(class(output), "optim_nmsa")
+  class(output) <- "optim_nmsa"
   return (output)
 }

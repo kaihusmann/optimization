@@ -9,7 +9,7 @@ Creates convergence or contour plot for visual inspection of algorithm behavior.
 }
 \usage{
 # S3 method for class 'optim_nmsa'
-plot(x, type = 'convergence', lower = NA, upper = NA, ...)
+plot(x, type = 'convergence', lower = NA, upper = NA)
 }
 \arguments{
   \item{x}{
