@@ -118,7 +118,7 @@ Computer Journal, 7(4).
 Alexander Lange
 }
 \seealso{
-\code{\link{optim_sa}}, \code{\link{optim}}, \code{\link{plot}}
+\code{\link{optim_sa}}, \code{\link{optim}}, \code{\link{plot.optim_nmsa}}
 }
 \examples{
 

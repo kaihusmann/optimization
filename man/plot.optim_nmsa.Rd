@@ -1,5 +1,5 @@
 \name{plot.optim_nmsa}
-\alias{plot}
+\alias{plot.optim_nmsa}
 
 \title{
 Plot method for objects of class "optim_nmsa"
@@ -8,11 +8,10 @@ Plot method for objects of class "optim_nmsa"
 Creates convergence or contour plot for visual inspection of algorithm behavior.
 }
 \usage{
-# S3 method for class 'optim_nmsa'
-plot(x, type = 'convergence', lower = NA, upper = NA, ...)
+\method{plot}{optim_nmsa}(object, type = 'convergence', lower = NA, upper = NA)
 }
 \arguments{
-  \item{x}{
+  \item{object}{
   Object of type 'nmsa' to be plotted. Trace is expected to be TRUE.
   }
   \item{type}{
