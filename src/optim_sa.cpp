@@ -1,6 +1,6 @@
 #include <Rcpp.h>
 #include <math.h>
-#include <iostream> // only needed for system output
+#include <iostream>
 #include <vector>
 using namespace std;
 using namespace Rcpp;
@@ -20,7 +20,9 @@ NumericVector var_funcc (NumericVector para_0, int fun_length, NumericVector rf)
 }
 
 // [[Rcpp::export]]
-List main_loop (double temp, double t_min, double r, int fun_length, int nlimit, NumericVector para_0, NumericVector para_i, Function var_func, bool vf_user, bool trace, NumericVector rf, NumericVector lower, NumericVector upper, Function fun, double loss_0, double k, double loss_opt, NumericVector para_opt, bool dyn_rf, double maxgood, double ac_acc, int stopac) {
+List main_loop (double temp, double t_min, double r, int fun_length, int nlimit, NumericVector para_0, NumericVector para_i, Function var_func, bool vf_user,
+                bool trace, NumericVector rf, NumericVector lower, NumericVector upper, Function fun, double loss_0, double k, double loss_opt, NumericVector para_opt,
+                bool dyn_rf, double maxgood, double ac_acc, int stopac) {
   // Initializating variables
   IntegerVector n_oob(fun_length);
   int n_outer = 0;
@@ -39,10 +41,8 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
   vector<double> row_rf;
   vector< vector<double> > trace_rf;
 
-
   // The outer while loop: Number of repeatitions depends on cooling function and the temp. limit.
   while (temp > t_min){
-
 
     // Initializing and resetting variables inside the while loop
     int goodcounter = 0;
@@ -100,6 +100,8 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
         loss_0 = loss_i;
         para_0 = para_i;
       } else{ // This is the difference between Sim. Ann. and other Algorithms. It ist the prob. of accepting the worse loss.
+        // If a loss_i is not defined (e. g. due to restrictions of the loss function [NA in ther R function]), the if connot be true
+        // loss_0 and para_0 are thus never updated with undefined values.
 
         if (R::runif(0, 1) < exp (- fabs (delta) / (k * temp) )){
           loss_0 = loss_i;
@@ -168,20 +170,13 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
        }else {
           ds[j] = 1.0 / ( (double) n_outer  / 5.0);
         }
-
         if (rf[j] * ds[j] <= 0.1) {
           rf[j] = 0.1;
         }else{
           rf[j] = rf[j] * ds[j];
         }
-
      }
-
-
     }
-
-
-
   }
 
 

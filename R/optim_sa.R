@@ -2,12 +2,9 @@
 #### Simulated Annealing Optimization Algorithm ####
 #--------------------------------------------------#
 
-# Updated 15.01.2016 #
+# Updated 20.11.2016 #
 
 optim_sa <- function (fun, start, maximization = FALSE, trace = FALSE ,lower, upper, control = list(), ...) {
-#   two <- 2
-#   four <- .Call('optimization_testd', two ,PACKAGE = 'optimization')
-#   print(four)
 
   #------------------#
   ## Initialisation ##
@@ -176,19 +173,6 @@ optim_sa <- function (fun, start, maximization = FALSE, trace = FALSE ,lower, up
   ## Postprocessing and output generation ##
   #----------------------------------------#
 
-  # status_message <- tryCatch (data.frame(iteration = result[["savei"]], function_value = round(result[["loss_opt"]], 5), t(round(result[["para_opt"]], 5)), temperature = round(result[["savet"]], 5)),
-  #   error = function (e) {
-  #     warning ("Algorithm did not converge. Try different random factor or staring values.", call. = FALSE)
-  #     return (NULL)
-  #   }
-  #   )
-  #
-  # if (!is.na(status_message$iteration)) {
-  #   # cat("Algorithm converged.\n")
-  #   # names(status_message)[3 : (2 + fun_length)] <- paste("x", c(1 : fun_length), sep = "_")
-  #   # print(data.frame(status_message, row.names = ""),digits = 3)
-  # }
-  #
   if(trace) {
     df_para <- t(as.data.frame(result[["para"]]))
     df_rf <- t(as.data.frame(result["rf"]))
