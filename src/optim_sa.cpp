@@ -14,7 +14,7 @@ NumericVector func (NumericVector para, Function fun) {
 NumericVector var_funcc (NumericVector para_0, int fun_length, NumericVector rf) {
   NumericVector ret_var_func(fun_length);
   for(int k = 0; k < (fun_length); k++) {
-    ret_var_func[k] = para_0[k] + R::runif(0.00000000001, rf[k]) * ((R::rbinom(1, 0.5) * -2) + 1);
+    ret_var_func[k] = para_0[k] + (round(R::runif(0.0001, rf[k]) * 10000) / 10000) * ((R::rbinom(1, 0.5) * -2) + 1);
   }
   return ret_var_func;
 }

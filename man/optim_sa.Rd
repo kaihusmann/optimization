@@ -134,12 +134,12 @@ ro_sa <- optim_sa(fun = ro,
                   lower = c(-5, -5),
                   upper = c(5, 5),
                   trace = TRUE,
-                  control = list(t0 = 10,
+                  control = list(t0 = 100,
                             nlimit = 250,
                             t_min = 0.01,
                             dyn_rf = FALSE,
                             rf = 1,
-                            r = 0.6
+                            r = 0.7
                   )
          )
 

@@ -9,5 +9,5 @@ Description: Numerical Optimization with Nelder-Mead and Simulated Annealing alg
 License: GPL (>= 2)
 Depends: R (>= 3.2.0), Rcpp (>= 0.12.3)
 Imports: colorspace
-Packaged: 2015-07-13 11:15:26 UTC; khusmann
+Packaged: 2015-11-16 11:15:26 UTC; khusmann
 LinkingTo: Rcpp
