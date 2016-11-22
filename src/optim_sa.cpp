@@ -14,7 +14,7 @@ NumericVector func (NumericVector para, Function fun) {
 NumericVector var_funcc (NumericVector para_0, int fun_length, NumericVector rf) {
   NumericVector ret_var_func(fun_length);
   for(int k = 0; k < (fun_length); k++) {
-    ret_var_func[k] = para_0[k] + (round(R::runif(0.0001, rf[k]) * 10000) / 10000) * ((R::rbinom(1, 0.5) * -2) + 1);
+    ret_var_func[k] = para_0[k] + (round(R::runif(0, rf[k]) * 100) / 100) * ((R::rbinom(1, 0.5) * -2) + 1);
   }
   return ret_var_func;
 }
@@ -82,8 +82,8 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
             }
             // NumericVector temp_para_i = var_func(para_0[i], 1, rf[i]); // MUST BE UPDATED: C FUN NEEDED
 
-            para_i[j] = temp_para_i[1];
-            if (emergency_stop > 10000){stop("The restrictions cannot be hold. Try different combination of starting values, boundaries or random factor.");}
+            para_i[j] = temp_para_i[0];
+            if (emergency_stop > 1000){stop("The restrictions cannot be hold. Try different combination of starting values, boundaries or random factor.");}
           }
 
         }
