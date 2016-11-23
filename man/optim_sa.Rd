@@ -135,7 +135,7 @@ ro_sa <- optim_sa(fun = ro,
                   upper = c(5, 5),
                   trace = TRUE,
                   control = list(t0 = 100,
-                            nlimit = 250,
+                            nlimit = 550,
                             t_min = 0.01,
                             dyn_rf = FALSE,
                             rf = 1,
@@ -202,7 +202,7 @@ var_func_int <- function(para_0, fun_length, rf){
 }
 
 optim_sa(fun = hi,
-         start = c(runif(2, min = -1, max = 1)),
+         start = round(c(runif(2, min = -1, max = 1))),
                 trace = TRUE,
                 lower = c(-4, -4),
                 upper=c(4, 4),
