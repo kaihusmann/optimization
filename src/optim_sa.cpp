@@ -78,7 +78,7 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
               temp_para_i = var_funcc(para_0_j, 1, rf_j); // By the default function
               //temp_para_i = var_func(para_0[j], 1, rf[j]);
             } else {
-              temp_para_i = var_func(para_0[j], 1, rf[j]); // By a user declared function. This is an SEXP. The algorithm is therefore much slower with it.
+              temp_para_i = var_func(para_0[j], 1, rf[j], temp); // By a user declared function. This is an SEXP. The algorithm is therefore much slower with it.
             }
             // NumericVector temp_para_i = var_func(para_0[i], 1, rf[i]); // MUST BE UPDATED: C FUN NEEDED
 
