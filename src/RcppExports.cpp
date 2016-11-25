@@ -33,13 +33,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type maxgood(maxgoodSEXP);
     Rcpp::traits::input_parameter< double >::type ac_acc(ac_accSEXP);
     Rcpp::traits::input_parameter< int >::type stopac(stopacSEXP);
-<<<<<<< HEAD
-    __result = Rcpp::wrap(main_loop(temp, t_min, r, fun_length, nlimit, para_0, para_i, var_func, vf_user, trace, rf, lower, upper, fun, loss_0, k, loss_opt, para_opt, dyn_rf, maxgood, ac_acc, stopac));
-    return __result;
-=======
     Rcpp::traits::input_parameter< bool >::type maximization(maximizationSEXP);
-    rcpp_result_gen = Rcpp::wrap(main_loop(temp, t_min, r, fun_length, nlimit, para_0, para_i, var_func, vf_user, trace, rf, lower, upper, fun, loss_0, k, loss_opt, para_opt, dyn_rf, maxgood, ac_acc, stopac, maximization));
-    return rcpp_result_gen;
->>>>>>> 1796f3a4b1432ce0d014a5d9a4182359b89471ad
+    __result = Rcpp::wrap(main_loop(temp, t_min, r, fun_length, nlimit, para_0, para_i, var_func, vf_user, trace, rf, lower, upper, fun, loss_0, k, loss_opt, para_opt, dyn_rf, maxgood, ac_acc, stopac, maximization));
+    return __result;
 END_RCPP
 }
