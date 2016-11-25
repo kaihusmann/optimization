@@ -195,7 +195,7 @@ hi <- function(x){
 # Random start values. Example arguments for integer programming.
 # Only the integer solution will be found.
 
-var_func_int <- function(para_0, fun_length, rf){
+var_func_int <- function(para_0, fun_length, rf, temp = NA){
   ret_var_func <- para_0 + sample.int(rf, fun_length, replace = TRUE) *
   ((rbinom(fun_length, 1, 0.5) * -2) + 1)
   return (ret_var_func)
