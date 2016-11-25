@@ -14,7 +14,7 @@ NumericVector func (NumericVector para, Function fun) {
 NumericVector var_funcc (NumericVector para_0, int fun_length, NumericVector rf) {
   NumericVector ret_var_func(fun_length);
   for(int k = 0; k < (fun_length); k++) {
-    ret_var_func[k] = para_0[k] + R::runif(0.00000000001, rf[k]) * ((R::rbinom(1, 0.5) * -2) + 1);
+    ret_var_func[k] = para_0[k] + (round(R::runif(0, rf[k]) * 100) / 100) * ((R::rbinom(1, 0.5) * -2) + 1);
   }
   return ret_var_func;
 }
@@ -22,7 +22,7 @@ NumericVector var_funcc (NumericVector para_0, int fun_length, NumericVector rf)
 // [[Rcpp::export]]
 List main_loop (double temp, double t_min, double r, int fun_length, int nlimit, NumericVector para_0, NumericVector para_i, Function var_func, bool vf_user,
                 bool trace, NumericVector rf, NumericVector lower, NumericVector upper, Function fun, double loss_0, double k, double loss_opt, NumericVector para_opt,
-                bool dyn_rf, double maxgood, double ac_acc, int stopac) {
+                bool dyn_rf, double maxgood, double ac_acc, int stopac, bool maximization) {
   // Initializating variables
   IntegerVector n_oob(fun_length);
   int n_outer = 0;
@@ -78,12 +78,12 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
               temp_para_i = var_funcc(para_0_j, 1, rf_j); // By the default function
               //temp_para_i = var_func(para_0[j], 1, rf[j]);
             } else {
-              temp_para_i = var_func(para_0[j], 1, rf[j]); // By a user declared function. This is an SEXP. The algorithm is therefore much slower with it.
+              temp_para_i = var_func(para_0[j], 1, rf[j], temp); // By a user declared function. This is an SEXP. The algorithm is therefore much slower with it.
             }
             // NumericVector temp_para_i = var_func(para_0[i], 1, rf[i]); // MUST BE UPDATED: C FUN NEEDED
 
-            para_i[j] = temp_para_i[1];
-            if (emergency_stop > 10000){stop("The restrictions cannot be hold. Try different combination of starting values, boundaries or random factor.");}
+            para_i[j] = temp_para_i[0];
+            if (emergency_stop > 1000){stop("The restrictions cannot be hold. Try different combination of starting values, boundaries or random factor.");}
           }
 
         }
@@ -96,14 +96,15 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
       loss_i = loss_i_temp[0];
       double delta = loss_i - loss_0;
       // Check, if the loss has improved
-      if (delta < 0){
+      if(maximization) {delta = delta * -1;}
+      if (delta < 0) {
         loss_0 = loss_i;
         para_0 = para_i;
       } else{ // This is the difference between Sim. Ann. and other Algorithms. It ist the prob. of accepting the worse loss.
         // If a loss_i is not defined (e. g. due to restrictions of the loss function [NA in ther R function]), the if connot be true
         // loss_0 and para_0 are thus never updated with undefined values.
 
-        if (R::runif(0, 1) < exp (- fabs (delta) / (k * temp) )){
+        if (R::runif(0, 1) < exp (- fabs (delta) / (k * temp) )) {
           loss_0 = loss_i;
           para_0 = para_i;
         }

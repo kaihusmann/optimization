@@ -134,12 +134,12 @@ ro_sa <- optim_sa(fun = ro,
                   lower = c(-5, -5),
                   upper = c(5, 5),
                   trace = TRUE,
-                  control = list(t0 = 10,
-                            nlimit = 250,
+                  control = list(t0 = 100,
+                            nlimit = 550,
                             t_min = 0.01,
                             dyn_rf = FALSE,
                             rf = 1,
-                            r = 0.6
+                            r = 0.7
                   )
          )
 
@@ -195,14 +195,14 @@ hi <- function(x){
 # Random start values. Example arguments for integer programming.
 # Only the integer solution will be found.
 
-var_func_int <- function(para_0, fun_length, rf){
+var_func_int <- function(para_0, fun_length, rf, temp = NA){
   ret_var_func <- para_0 + sample.int(rf, fun_length, replace = TRUE) *
   ((rbinom(fun_length, 1, 0.5) * -2) + 1)
   return (ret_var_func)
 }
 
 optim_sa(fun = hi,
-         start = c(runif(2, min = -1, max = 1)),
+         start = round(c(runif(2, min = -1, max = 1))),
                 trace = TRUE,
                 lower = c(-4, -4),
                 upper=c(4, 4),
