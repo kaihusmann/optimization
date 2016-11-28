@@ -1,11 +1,11 @@
 Package: optimization
 Type: Package
-Title: Numerical Optimization with Nelder-Mead and Simulated Annealing
+Title: Multi-purpose optimization
 Version: 1.0-1
-Date: 2016-11-20
+Date: 2016-11-28
 Author: Kai Husmann and Alexander Lange
 Maintainer: Kai Husmann <khusman1@uni-goettingen.de>
-Description: Very flexible multi-purpose optimizer with numerous input specifications. It allows a very problem specific parameterizion and is therefore useful for specific and complex loss functions, e. g. optimization problems with descrete parameter space. Also visualization tools for validation and analyzation of the convergence are included.
+Description: Flexible multi-purpose optimizer with numerous input specifications. It allows a very problem specific parameterizion and is therefore useful for specific and complex loss functions, e. g. optimization problems with descrete parameter space. Also visualization tools for validation and analyzation of the convergence are included.
 License: GPL (>= 2)
 Depends: R (>= 3.2.0), Rcpp (>= 0.12.3)
 Imports: colorspace
