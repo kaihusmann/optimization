@@ -136,7 +136,7 @@ ro_sa <- optim_sa(fun = ro,
                   trace = TRUE,
                   control = list(t0 = 100,
                             nlimit = 550,
-                            t_min = 0.01,
+                            t_min = 0.1,
                             dyn_rf = FALSE,
                             rf = 1,
                             r = 0.7
@@ -144,7 +144,7 @@ ro_sa <- optim_sa(fun = ro,
          )
 
 
-# Visual inspection of algorithm behavior.
+# Visual inspection.
 plot(ro_sa)
 plot(ro_sa, type = "contour")
 
@@ -177,7 +177,7 @@ optim_sa(fun = ho,
                         t0 = 10,
                         nlimit = 200,
                         r = 0.6,
-                        t_min = 0.01
+                        t_min = 0.1
          )
 )
 
