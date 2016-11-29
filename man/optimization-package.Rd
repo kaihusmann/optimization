@@ -8,7 +8,7 @@
 \packageDescription{optimization}
 }
 \details{
-Numerical Optimization with Nelder-Mead and Simulated Annealing algorithm.
+Multi-purpose optimization with Nelder-Mead and Simulated Annealing methods.
 }
 \author{
 \packageAuthor{optimization}

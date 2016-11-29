@@ -5,7 +5,7 @@ Version: 1.0-1
 Date: 2016-11-28
 Author: Kai Husmann and Alexander Lange
 Maintainer: Kai Husmann <khusman1@uni-goettingen.de>
-Description: Flexible multi-purpose optimizer with numerous input specifications. It allows a very detailed parameterization and is therefore useful for specific and complex loss functions, e. g. optimization problems with discrete parameter space. Also visualization tools for validation and analysis of the convergence are included.
+Description: Flexible multi-purpose optimizer with numerous input specifications. It allows a very detailed parameterization and is therefore useful for specific and complex loss functions, like functions with discrete parameter space. Also visualization tools for validation and analysis of the convergence are included.
 License: GPL (>= 2)
 Depends: R (>= 3.2.0), Rcpp (>= 0.12.3)
 Imports: colorspace

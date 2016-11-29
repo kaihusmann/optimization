@@ -1,49 +1,50 @@
 \name{optim_sa}
 \alias{optim_sa}
 \title{
-Simulated Annealing Optimization
+Multi-Purpose Optimization with Simulated Annealing
 }
 \description{
-Numerical optimization algorithm that searches for the global optimum of non-linear functions. The function is allowed to be non-differentiable and multimodal.
+Numerical optimization method that searches for the global optimum of non-linear functions. The function is allowed to be non-differentiable and multimodal.
 }
 \usage{
 optim_sa(fun, start, maximization = FALSE, trace = FALSE,
          lower, upper, control = list(), ...)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{fun}{
-  Function to be optimized. It should return a scalar value. The parameters should be assigned as a vector.
+  Function to be optimized. It must return a scalar value. The variables must be assigned as a vector.
   }
   \item{start}{
-  Vector of initial values for the function parameters. Must be of same length as the parameter vector of the function.
+  Vector of initial values for the function variables. Must be of same length as the parameter vector of the function. The response of the initial parameter combination must not be NA.
   }
   \item{maximization}{
-  Logical. Has to be TRUE if the function is to be maximized. Default is FALSE.
+  Logical. Default is FALSE.
   }
   \item{trace}{
   Logical. When TRUE, interim results are stored in a matrix. Necessary for the plot function. Default is FALSE.
   }
   \item{lower}{
-  Vector of lower boundaries for the function parameters. Must be of same length as the parameter vector of the function and the initial values.
+  Vector of lower boundaries for the function variables. Must be of same length as the parameter vector of the function and the initial values.
   }
   \item{upper}{
-  Vector of upper boundaries for the function parameters. Must be of same length as the parameter vector of the function and the initial values.
-  }
-  \item{...}{
-  Additional arguments defined by the user. May be useful for complex functions.
+  Vector of upper boundaries for the function variables. Must be of same length as the parameter vector of the function and the initial values.
   }
   \item{control}{
-  List with optional further arguments that can be used to control the behavior of the algorithm:
+  List with optional further arguments that can be used to control the algorithm:
     \describe{
       \item{\code{vf}}{
-        Function that determines the variation of the function parameters. Default is a uniform distributed random number.
+        Function that determines the variation of the function parameters. Default is a uniform distributed random number. The variation function is allowed to depend on the vector of variables of the former iteration, the vector of variation factors \code{vf} in which the variables are allowed changed and the temperature of the current iteration.
       }
       \item{\code{rf}}{
-        Numeric. Random factor that determines the range of the random number of \code{vf} in relation to the dimension of the function parameters. Default is 1. \code{rf} depends on the number of function calls which are out of the user specific bounds and the temperature. It is thus dynamic over time.
+        Numeric vector. Random factor vector that determines the variation of the random number of \code{vf} in relation to the dimension of the function parameters for the following iteration. Default is 1. If \code{dyn_rf} is enabled, the \code{rf} changes over time.
+
+
       }
       \item{\code{dyn_rf}}{
-        Logical. It is sometimes useful to disable the dynamic \code{rf} changing. Especially when unimodal functions are solved.  As \code{rf} dynamics usually improve the performance as well as the accuracy it should be enabled when possible. Default is TRUE.
+        Logical. Dynamic \code{rf} usually improve the performance as well as the accuracy, see details section. Default is TRUE.
+
+        The dynamic \code{rf} adjustment depends on the number of function calls which are out of the user specific bounds as well as the temperature of the current iteration. The obligatory decreasing \code{rf} ensures a relatively wide search grid at the beginning of the optimization process that shrinks over time. It can thus automatically searches the useful trade-off between range and accuracy. See XXX for more details. It is sometimes useful to disable the dynamic \code{rf} changing. Especially when relatively easy function, like unimodal functions, are solved.
       }
       \item{\code{t0}}{
         Numeric. Initial temperature. Default is 1000.

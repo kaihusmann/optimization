@@ -4,7 +4,7 @@
 
 # Updated 20.11.2016 #
 
-optim_sa <- function (fun, start, maximization = FALSE, trace = FALSE ,lower, upper, control = list(), ...) {
+optim_sa <- function (fun, start, maximization = FALSE, trace = FALSE ,lower, upper, control = list()) {
 
   #------------------#
   ## Initialisation ##

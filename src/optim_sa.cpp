@@ -57,7 +57,7 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
       if(!vf_user){ // Variation of the parameters...
         para_i = var_funcc(para_0, fun_length, rf); // ...by the default function
       } else {
-        para_i = var_func(para_0, fun_length, rf); // ...by a user declared function. This is an SEXP. The algorithm is therefore much slower with it.
+        para_i = var_func(para_0, fun_length, rf, temp); // ...by a user declared function. This is an SEXP. The algorithm is therefore much slower with it.
       }
 
       // Counting the parameters which are out of bounds and change them.

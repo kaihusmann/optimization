@@ -1,7 +1,7 @@
 \name{optim_nm}
 \alias{optim_nm}
 \title{
-  Nelder-Mead Optimization
+  Optimization with Nelder-Mead
 }
 \description{
   This function contains a direct search algorithm, to minimize or maximize an objective function with respect to their
