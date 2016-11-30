@@ -8,7 +8,7 @@ Numerical optimization method that searches for the global optimum of non-linear
 }
 \usage{
 optim_sa(fun, start, maximization = FALSE, trace = FALSE,
-         lower, upper, control = list(), ...)
+         lower, upper, control = list())
 }
 
 \arguments{
