@@ -76,8 +76,6 @@ Simulated Annealing is an optimization algorithm for solving complex functions t
 The performance therefore highly depends on the settings. It is indispensable to parameterize the algorithm carefully. The control list is pre-parameterized for loss functions of medium complexity. To improve the performance, the settings should be changed when solving relatively simple functions (e. g. three dimensional multimodal functions). For complex functions the settings should be changed to improve the accuracy. Most important parameters are \code{nlimit},  \code{r} and \code{t0}.
 
 The dynamic \code{rf} adjustment depends on the number of loss function calls which are out of the variables boundaries as well as the temperature of the current iteration. The obligatory decreasing \code{rf} ensures a relatively wide search grid at the beginning of the optimization process that shrinks over time. It thus automatically adjusts for the trade-off between range of the search grid and accuracy. See Pronzato (1984) for more details. It is sometimes useful to disable the dynamic \code{rf} changing when the most performant \code{rf} are known. As \code{dyn_rf} usually improves the performance as well as the accuracy, the default is TRUE.
-
-
 }
 \value{
 The output is a nmsa_optim list object with following entries:
