@@ -4,7 +4,7 @@
 Multi-Purpose Optimization with Simulated Annealing
 }
 \description{
-Numerical optimization method that searches for the global optimum of non-linear functions. The function is allowed to be non-differentiable and multimodal.
+Random search optimization method with systematic component that searches the global optimum. The loss function is allowed to be non-linear, non-differentiable and multimodal. Undefined responses are allowed as well.
 }
 \usage{
 optim_sa(fun, start, maximization = FALSE, trace = FALSE,
@@ -13,38 +13,34 @@ optim_sa(fun, start, maximization = FALSE, trace = FALSE,
 
 \arguments{
   \item{fun}{
-  Function to be optimized. It must return a scalar value. The variables must be assigned as a vector.
+  Loss function to be optimized. It must return a scalar value. The variables must be assigned as a vector. See 'details'.
   }
   \item{start}{
-  Vector of initial values for the function variables. Must be of same length as the parameter vector of the function. The response of the initial parameter combination must not be NA.
+  Vector of initial values for the function variables. Must be of same length as the variables vector of the loss function. The response of the initial variables combination must be defined (NA or NaN responses are not allowed).
   }
   \item{maximization}{
   Logical. Default is FALSE.
   }
   \item{trace}{
-  Logical. When TRUE, interim results are stored in a matrix. Necessary for the plot function. Default is FALSE.
+  Logical. If TRUE, interim results are stored. Necessary for the plot function. Default is FALSE.
   }
   \item{lower}{
-  Vector of lower boundaries for the function variables. Must be of same length as the parameter vector of the function and the initial values.
+  Vector of lower boundaries for the function variables. Must be of same length as the variables vector of the function.
   }
   \item{upper}{
-  Vector of upper boundaries for the function variables. Must be of same length as the parameter vector of the function and the initial values.
+  Vector of upper boundaries for the function variables. Must be of same length as the variables vector of the function.
   }
   \item{control}{
-  List with optional further arguments that can be used to control the algorithm:
+  List with optional further arguments to modify the optimization specifically to the loss function:
     \describe{
       \item{\code{vf}}{
-        Function that determines the variation of the function parameters. Default is a uniform distributed random number. The variation function is allowed to depend on the vector of variables of the former iteration, the vector of variation factors \code{vf} in which the variables are allowed changed and the temperature of the current iteration.
+        Function that determines the variation of the function variables for the next iteration. The variation function is allowed to depend on the vector of variables of the current iteration, the vector of random factors \code{rf} and the temperature of the current iteration. Default is a uniform distributed random number with relative range \code{rf}.
       }
       \item{\code{rf}}{
-        Numeric vector. Random factor vector that determines the variation of the random number of \code{vf} in relation to the dimension of the function parameters for the following iteration. Default is 1. If \code{dyn_rf} is enabled, the \code{rf} changes over time.
-
-
+        Numeric vector. Random factor vector that determines the variation of the random number of \code{vf} in relation to the dimension of the function variables for the following iteration. Default is 1. If \code{dyn_rf} is enabled, the \code{rf} change dynamically over time.
       }
       \item{\code{dyn_rf}}{
-        Logical. Dynamic \code{rf} usually improve the performance as well as the accuracy, see details section. Default is TRUE.
-
-        The dynamic \code{rf} adjustment depends on the number of function calls which are out of the user specific bounds as well as the temperature of the current iteration. The obligatory decreasing \code{rf} ensures a relatively wide search grid at the beginning of the optimization process that shrinks over time. It can thus automatically searches the useful trade-off between range and accuracy. See XXX for more details. It is sometimes useful to disable the dynamic \code{rf} changing. Especially when relatively easy function, like unimodal functions, are solved.
+        Logical. \code{rf} change dynamically over time to ensure increasing precision with increasing number of iterations. Default is TRUE, see 'details'.
       }
       \item{\code{t0}}{
         Numeric. Initial temperature. Default is 1000.
@@ -56,53 +52,59 @@ optim_sa(fun, start, maximization = FALSE, trace = FALSE,
         Numeric. Temperature reduction in the outer loop. Default is 0.6.
       }
       \item{\code{k}}{
-        Numeric. Boltzmann constant in the Metropolis function. Default is 1.
+        Numeric. Constant for the Metropolis function. Default is 1.
       }
       \item{\code{t_min}}{
-        Numeric. Limit temperature where the algorithm stops. Default is 0.1.
+        Numeric. Temperature where outer loop stops. Default is 0.1.
       }
       \item{\code{maxgood}}{
-        Integer. Break criterion to improve the algorithm performance. Maximum number of function value improvements in the inner loop. Breaks the inner loop and starts the next. Default is 100.
+        Integer. Break criterion to improve the algorithm performance. Maximum number of loss function improvements in the inner loop. Breaks the inner loop. Default is 100.
       }
       \item{\code{stopac}}{
-        Integer. Break criterion to improve the algorithm performance. Maximum number of repetitions where the function value improvement is less than a certain accuracy. Breaks the inner loop and starts the next. Default is 30.
+        Integer. Break criterion to improve the algorithm performance. Maximum number of repetitions where the loss improvement is lower than \code{ac_acc}. Breaks the inner loop. Default is 30.
       }
       \item{\code{ac_acc}}{
-        Numeric. Accuracy of the \code{stopac} break criterion. Default is 1/10000 of the function value at initial parameter combination.
+        Numeric. Accuracy of the \code{stopac} break criterion in relation to the response. Default is 1/10000 of the function value at initial variables combination.
       }
     }
   }
 
 }
 \details{
-Simulated Annealing is an optimization algorithm for solving complex functions that may have several minima (or maxima respectively) or are non-differentiable. The algorithms performance highly depends on the settings. It is therefore not recommended to use the Simulated Annealing Optimization Algorithm for non-complex functions. The control list is parameterized for solving a function of medium complexity. It should be changed when solving a relatively simple function (e. g. a three dimensional function) to improve the performance. For relatively complex functions the settings should be changed to improve the accuracy. The performance highly depends on \code{nlimit} and \code{r}. \code{t0} should increase with models complexity since the possibility of leaving a local optimum increases with the temperature.
+Simulated Annealing is an optimization algorithm for solving complex functions that may have several optima. The method is composed of a random and a systematic component. Basically, it randomly modifies the variables combination \code{n_limit} times to compare their response values. Depending on the temperature and the constant \code{k}, there is also a likelihood of choosing variables combinations with worse response. There is thus a time-decreasing likelihood of leaving local opima. The Simulated Annealing Optimization method is therefore advantageous for multimodal functions. Undefined response values (NA) are allowed as well. This can be useful for loss functions with variables restrictions. The high number of parameters allows a very flexible parameterization. \code{optim_sa} is able to solve mathematical formulas as well as complex rule sets.
+
+The performance therefore highly depends on the settings. It is indispensable to parameterize the algorithm carefully. The control list is pre-parameterized for loss functions of medium complexity. To improve the performance, the settings should be changed when solving relatively simple functions (e. g. three dimensional multimodal functions). For complex functions the settings should be changed to improve the accuracy. Most important parameters are \code{nlimit},  \code{r} and \code{t0}.
+
+The dynamic \code{rf} adjustment depends on the number of loss function calls which are out of the variables boundaries as well as the temperature of the current iteration. The obligatory decreasing \code{rf} ensures a relatively wide search grid at the beginning of the optimization process that shrinks over time. It thus automatically adjusts for the trade-off between range of the search grid and accuracy. See Pronzato (1984) for more details. It is sometimes useful to disable the dynamic \code{rf} changing when the most performant \code{rf} are known. As \code{dyn_rf} usually improves the performance as well as the accuracy, the default is TRUE.
+
+
 }
 \value{
 The output is a nmsa_optim list object with following entries:
   \describe{
     \item{\code{par}}{
-      Function parameters after optimization.
+      Function variables after optimization.
     }
     \item{\code{function_value}}{
-      Function value after optimization.
+      Loss function response after optimization.
     }
     \item{\code{trace}}{
       Matrix with interim results. NULL if \code{trace} was not activated.
     }
     \item{\code{fun}}{
-      The optimized function.
+      The loss function.
     }
     \item{\code{start}}{
-      The initial function parameters.
+      The initial function variables.
     }
     \item{\code{lower}}{
-      The lower boundaries of the function parameters.
+      The lower boundaries of the function variables.
     }
     \item{\code{upper}}{
-      The upper boundaries of the function parameters.
+      The upper boundaries of the function variables.
     }
     \item{\code{control}}{
-      control arguments after optimization.
+      Control arguments, see 'details'.
     }
 
 
@@ -110,9 +112,11 @@ The output is a nmsa_optim list object with following entries:
 }
 
 \references{
-Corana, A., Marchesi, M., Martini, C. and Ridella, S. (1987), Minimizing Multimodal Functions of Continuous Variables with the 'Simulated Annealing' Algorithm. ACM Transactions on Mathematical Software, 13(3): 262-280.
+Corana, A., Marchesi, M., Martini, C. and Ridella, S. (1987), Minimizing Multimodal Functions of Continuous Variables with the 'Simulated Annealing' Algorithm. ACM Transactions on Mathematical Software, 13(3):262-280.
 
-Kirkpatrick, S., Gelatt, C. D. and Vecchi, M. P. (1983). Optimization by Simulated Annealing. Science, 220(4598): 671-680.
+Kirkpatrick, S., Gelatt, C. D. and Vecchi, M. P. (1983). Optimization by Simulated Annealing. Science, 220(4598):671-680.
+
+Pronzato, L., Walter, E., Venot, A. and Lebruchec, J.-F. (1984). A general-purpose global optimizer: Implimentation and applications. Mathematics and Computers in Simulation, 26(5):412-422.
 }
 \author{
 Kai Husmann
