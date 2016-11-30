@@ -10,9 +10,8 @@
 \usage{
   optim_nm(fun, k = 0, start, maximum = FALSE, trace = FALSE,
            alpha = 1, beta = 2, gamma = 1/2, delta = 1/2,
-           tol = 0.00001, exit = 500, edge = 1, ...)
+           tol = 0.00001, exit = 500, edge = 1)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{fun}{
   Function to minimize or maximize. It should return a single scalar value.
@@ -44,7 +43,7 @@
   has usually the half value of alpha, or is at least smaller than alpha.
   }
   \item{delta}{
-  A positive scalar which indicates the size of the shrinked simplex. It has usually the half value of alpha, or is at
+  A positive scalar which indicates the size of the shrunk simplex. It has usually the half value of alpha, or is at
   least smaller than alpha.
   }
   \item{tol}{
@@ -59,9 +58,6 @@
   \item{edge}{
   A positive scalar providing the edge length of the initial simplex. It is useful to adjust the edge length if the
   initial guess is quite close to the global optimum or if the function space is relatively small.
-  }
-  \item{...}{
-  Further arguments.
   }
 }
   \details{
