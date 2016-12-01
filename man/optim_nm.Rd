@@ -10,9 +10,9 @@
 \usage{
   optim_nm(fun, k = 0, start, maximum = FALSE, trace = FALSE,
            alpha = 1, beta = 2, gamma = 1/2, delta = 1/2,
-           tol = 0.00001, exit = 500, edge = 1, ...)
+           tol = 0.00001, exit = 500, edge = 1)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{fun}{
   Function to minimize or maximize. It should return a single scalar value.
@@ -22,7 +22,7 @@
   }
   \item{start}{
   Vector of initial vertex. Number of values must be equal to the number of parameters. The initial simplex is going to
-  constructed around this start vector
+  constructed around this start vector.
   }
   \item{maximum}{
   Logical. Whether the function has to be minimized or maximized. The default is set to minimization.
@@ -60,9 +60,6 @@
   A positive scalar providing the edge length of the initial simplex. It is useful to adjust the edge length if the
   initial guess is quite close to the global optimum or if the function space is relatively small.
   }
-  \item{...}{
-  Further arguments.
-  }
 }
   \details{
   The Nelder-Mead method is a comparatively simple heuristic optimization algorithm. However, It is quite useful for
@@ -72,7 +69,7 @@
   adjustments of the parameters needed to solve a wide range of common problems.
   }
   \value{
-  The output is a nmsa_optim list object with following entries:
+  The output is a nmsa_optim object with following entries:
   \describe{
     \item{\code{par}}{
       Function parameters after optimization.
