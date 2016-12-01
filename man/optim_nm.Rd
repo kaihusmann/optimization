@@ -22,7 +22,7 @@
   }
   \item{start}{
   Vector of initial vertex. Number of values must be equal to the number of parameters. The initial simplex is going to
-  constructed around this start vector
+  constructed around this start vector.
   }
   \item{maximum}{
   Logical. Whether the function has to be minimized or maximized. The default is set to minimization.

@@ -8,7 +8,11 @@
 \packageDescription{optimization}
 }
 \details{
-Multi-purpose optimization with Nelder-Mead and Simulated Annealing methods.
+Package: optimization
+Type:    Package
+Version: 1.0-1
+Date:    2016-11-28
+License: GPL-2
 }
 \author{
 \packageAuthor{optimization}
@@ -16,10 +20,17 @@ Multi-purpose optimization with Nelder-Mead and Simulated Annealing methods.
 Maintainer: \packageMaintainer{optimization}
 }
 \references{
+Corana, A., Marchesi, M., Martini, C. and Ridella, S. (1987), Minimizing Multimodal Functions of Continuous Variables with the 'Simulated Annealing' Algorithm. ACM Transactions on Mathematical Software, 13(3):262-280.
+
+Gao, F. and Han, L. (2012). Implementing the nelder-mead simplex algorithm with adaptive parameters. Computational Optimization and Applications, 51(1):259 277.
+
+Geiger, C. and Kanzow, C. (1999). Das nelder-mead-verfahren. Numerische Verfahren zur Loesung unregestrier er Optimierungsaufgaben.
+
 Kirkpatrick, S., Gelatt, C. D. and Vecchi, M. P. (1983). Optimization by Simulated Annealing. Science, 220(4598): 671-680.
 
-Nelder, J. and Mead, R. (1965). A simplex method for function minimization.
-Computer Journal, 7(4).
+Nelder, J. and Mead, R. (1965). A simplex method for function minimization. Computer Journal, 7(4).
+
+Pronzato, L., Walter, E., Venot, A. and Lebruchec, J.-F. (1984). A general-purpose global optimizer: Implimentation and applications. Mathematics and Computers in Simulation, 26(5):412-422.
 }
 
 \seealso{
