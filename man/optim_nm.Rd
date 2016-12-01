@@ -10,7 +10,7 @@
 \usage{
   optim_nm(fun, k = 0, start, maximum = FALSE, trace = FALSE,
            alpha = 1, beta = 2, gamma = 1/2, delta = 1/2,
-           tol = 0.00001, exit = 500, edge = 1, ...)
+           tol = 0.00001, exit = 500, edge = 1)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -59,9 +59,6 @@
   \item{edge}{
   A positive scalar providing the edge length of the initial simplex. It is useful to adjust the edge length if the
   initial guess is quite close to the global optimum or if the function space is relatively small.
-  }
-  \item{...}{
-  Further arguments.
   }
 }
   \details{
