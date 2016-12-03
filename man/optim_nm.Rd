@@ -18,55 +18,42 @@
   Function to minimize or maximize. It should return a single scalar value.
 }
   \item{k}{
-  Number of parameters the objective function has.
+  Number of parameters of the objective function.
   }
   \item{start}{
-  Vector of initial vertex. Number of values must be equal to the number of parameters. The initial simplex is going to
-  constructed around this start vector.
+  Optional vector with starting values. Number of values must be equal to \code{k}. The initial simplex is constructed around this start vector.
   }
   \item{maximum}{
-  Logical. Whether the function has to be minimized or maximized. The default is set to minimization.
+  Logical. The default is FALSE.
   }
   \item{trace}{
-  Logical. If TRUE the algorithm creates a matrix in the output, containing the best function values and parameters in
-  each iteration. This is necessary for applying the integrated plotting functions.
+  Logical. If TRUE, interim results are stored. Necessary for the plot function. Default is FALSE.
   }
   \item{alpha}{
-  A positive scalar which indicates the size of the reflected simplex. The value 1 leads to a reflected simplex of the
-  exact same size as the old one.
+  A positive scalar which indicates the size of the reflected simplex. The value 1 leads to a reflected simplex of the same size as the former iteration.
   }
   \item{beta}{
-  A positive scalar which indicates the size of the expended simplex. It has usually the twice value of alpha, or is at
-  least greater than alpha.
+  A positive scalar which indicates the size of the expended simplex. It is usually twice as high as \code{alpha}. It must be higher than \code{alpha}.
    }
   \item{gamma}{
   A positive scalar which indicates the size of either the outside contracted simplex or inside contracted simplex. It
-  has usually the half value of alpha, or is at least smaller than alpha.
+  is usually half as high as \code{alpha}. It must be smaller than \code{alpha}.
   }
   \item{delta}{
-  A positive scalar which indicates the size of the shrinked simplex. It has usually the half value of alpha, or is at
-  least smaller than alpha.
+  A positive scalar which indicates the size of the shrinked simplex. It is usually half as high as alpha. It must be smaller than \code{alpha}.
   }
   \item{tol}{
-  A positive scalar giving the tolerance at which the distances in between the function values of the simplex vertices is
-  close enough to zero to terminate the algorithm.
+  A positive scaler describing the tolerance at which the distances in between the function responses of the simplex vertices are close enough to zero to terminate the algorithm.
   }
   \item{exit}{
-  A positive scalar giving the maximum number of iterations the algorithm is allowed to take. It is used to prevent the
-  method from stepping into infinite loops. In case of optimizing functions with higher dimensions it is quite likely
-  that the algorithm needs more than 500 iterations. Therefore the value should be adjusted.
+  A positive scalar giving the maximum number of iterations the algorithm is allowed to take. It is used to prevent infinite loops. In case of optimizing functions with higher dimensions it is quite likely that the algorithm needs more than 500 iterations. The value should therefore be adjusted to the specific optimization problem.
   }
   \item{edge}{
-  A positive scalar providing the edge length of the initial simplex. It is useful to adjust the edge length if the
-  initial guess is quite close to the global optimum or if the function space is relatively small.
+  A positive scalar providing the edge length of the initial simplex. It is useful to adjust the edge length if the initial guess is close to the global optimum or if the parameter space of the loss function is relatively small.
   }
 }
   \details{
-  The Nelder-Mead method is a comparatively simple heuristic optimization algorithm. However, It is quite useful for
-  relatively simple optimization problems without many local minima and low dimensions(n < 10). Nevertheless, the speed
-  and accuracy are rather useful for simple problems. Moreover, the Nelder-Mead is able to optimize functions without
-  derivatives, which might be useful. The handling of the optimization function is quite easy, because there are no large
-  adjustments of the parameters needed to solve a wide range of common problems.
+  The Nelder-Mead method is a comparatively simple heuristic optimization algorithm. It is, However, useful for relatively simple optimization problems without many local minima and low dimensions(n < 10). Nevertheless, the speed and accuracy are rather useful for simple problems. Moreover, the Nelder-Mead is able to optimize functions without derivatives. The handling of the optimization function is quite easy, because there are only few parameters to adjust.
   }
   \value{
   The output is a nmsa_optim object with following entries:
@@ -75,13 +62,13 @@
       Function parameters after optimization.
     }
     \item{\code{function_value}}{
-      Function value after optimization.
+      Function response after optimization.
     }
     \item{\code{trace}}{
       Matrix with interim results. NULL if \code{trace} was not activated.
     }
     \item{\code{fun}}{
-      The optimized function.
+      The loss function.
     }
     \item{\code{start}}{
       The initial function parameters.
