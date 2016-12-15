@@ -109,13 +109,24 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
           para_0 = para_i;
         }
       }
-      if (loss_0 < loss_opt) {
-        goodcounter++;
-        loss_opt = loss_0;
-        para_opt = para_0;
-        savei = n_outer;
-        savet = temp;
+      if(maximization) {
+        if (loss_0 > loss_opt) {
+          goodcounter++;
+          loss_opt = loss_0;
+          para_opt = para_0;
+          savei = n_outer;
+          savet = temp;
+        }
+      } else {
+        if (loss_0 < loss_opt) {
+          goodcounter++;
+          loss_opt = loss_0;
+          para_opt = para_0;
+          savei = n_outer;
+          savet = temp;
+        }
       }
+
       // Check for break criterions.
       if (goodcounter > maxgood) {break;}
       if (fabs(loss_0 - loss_opt) < ac_acc){
