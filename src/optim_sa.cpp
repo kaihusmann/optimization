@@ -101,7 +101,7 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
         loss_0 = loss_i;
         para_0 = para_i;
       } else{ // This is the difference between Sim. Ann. and other Algorithms. It ist the prob. of accepting the worse loss.
-        // If a loss_i is not defined (e. g. due to restrictions of the loss function [NA in ther R function]), the if connot be true
+        // If a loss_i is not defined (e. g. due to restrictions of the loss function [NA in ther R function]), the if cannot be true
         // loss_0 and para_0 are thus never updated with undefined values.
 
         if (R::runif(0, 1) < exp (- fabs (delta) / (k * temp) )) {
@@ -158,14 +158,14 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
     temp = temp * r; // Temperature reduction.
 
     // Calculation of rf for the next iteration step according to the ratio of random values out of bounds (Corana et al. 1987).
-    if (dyn_rf == true){
+    if (dyn_rf == true) {
       NumericVector ratio_noob (n_oob.size());
-      for(int j = 0; j < n_oob.size(); j++){
+      for(int j = 0; j < n_oob.size(); j++) {
         ratio_noob[j] = ( (double) n_inner - (double) n_oob[j]) / (double) n_inner;
         if (ratio_noob[j] < 0.4 || ratio_noob[j] > 0.6) {
           if (ratio_noob[j] < 0.4) {
             rf[j] = rf[j] * (1.0 / (1.0 + 2.0 * ((0.4 - (double) ratio_noob[j]) / 0.4)));
-          }else{
+          } else {
             rf[j] = rf[j] * (1.0 + (2.0 * (( (double) ratio_noob[j] - 0.6) / 0.4)));
           }
         }
