@@ -61,8 +61,8 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
       }
 
       // Counting the parameters which are out of bounds and change them.
-      for(int j = 0; j < fun_length; j++){
-        if(para_i[j] < lower[j] || para_i[j] > upper[j]){
+      for(int j = 0; j < fun_length; j++) {
+        if(para_i[j] < lower[j] || para_i[j] > upper[j]) {
           n_oob[j]++;
           // Generate new values for the variable until it is within the boundaries.
           int emergency_stop = 0;
@@ -70,7 +70,7 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
             emergency_stop++;
             NumericVector temp_para_i(1);
 
-            if(!vf_user){ // Variation of the parameters.
+            if(!vf_user) { // Variation of the parameters.
               NumericVector para_0_j(1);
               para_0_j = para_0[j];
               NumericVector rf_j(1);
