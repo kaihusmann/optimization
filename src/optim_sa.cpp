@@ -52,15 +52,15 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
     std::fill(n_oob.begin(), n_oob.end(), 0);
 
     for (int i = 0; i < nlimit; i++) { // Inner loop, no. of repeatitions depends on the break criteria or on nlimit if no break criterion stops the loop.
-      // Changing the parameters
+      // Changing the variables
       n_inner++;
-      if(!vf_user){ // Variation of the parameters...
+      if(!vf_user){ // Variation of the variables...
         para_i = var_funcc(para_0, fun_length, rf); // ...by the default function
       } else {
         para_i = var_func(para_0, fun_length, rf, temp); // ...by a user declared function. This is an SEXP. The algorithm is therefore much slower with it.
       }
 
-      // Counting the parameters which are out of bounds and change them.
+      // Counting the variables which are out of bounds and change them.
       for(int j = 0; j < fun_length; j++) {
         if(para_i[j] < lower[j] || para_i[j] > upper[j]) {
           n_oob[j]++;
@@ -70,7 +70,7 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
             emergency_stop++;
             NumericVector temp_para_i(1);
 
-            if(!vf_user) { // Variation of the parameters.
+            if(!vf_user) { // Variation of the variables.
               NumericVector para_0_j(1);
               para_0_j = para_0[j];
               NumericVector rf_j(1);
