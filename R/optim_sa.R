@@ -168,7 +168,7 @@ optim_sa <- function (fun, start, maximization = FALSE, trace = FALSE ,lower, up
               ac_acc,
               stopac = stopac,
               maximization = maximization,
-              package = 'optimization')
+              PACKAGE = 'optimization')
 
   #----------------------------------------#
   ## Postprocessing and output generation ##
