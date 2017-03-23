@@ -1,7 +1,7 @@
 Package: optimization
 Type: Package
 Title: Flexible Optimization
-Version: 1.0-2
+Version: 1.0-3
 Date: 2017-03-10
 Author: Kai Husmann and Alexander Lange
 Maintainer: Kai Husmann <khusman1@uni-goettingen.de>
