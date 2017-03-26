@@ -30,6 +30,7 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
   double savet = 0;
   int ac = 0;
   double loss_i = 0;
+  bool firsttemp = true;
   // Init trace
   vector<int> trace_n_outer;
   vector<double> trace_loss;
@@ -42,14 +43,21 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
   vector< vector<double> > trace_rf;
 
   // The outer while loop: Number of repeatitions depends on cooling function and the temp. limit.
-  while (temp > t_min){
-
+  while (temp > t_min) {
     // Initializing and resetting variables inside the while loop
     int goodcounter = 0;
     int n_inner = 0;
     n_outer++;
-
     std::fill(n_oob.begin(), n_oob.end(), 0);
+
+    // If the tzemperature is < 1 for the first time, the temp. optimum is overwritten by the global optimum. Since traps cannot be left (practically) for
+    // t < 1 after this time point only accuracy is relevant.
+    if(temp <= 2 && firsttemp) {
+      // tbd. r could be reduced at this point
+      firsttemp = false;
+      loss_0 = loss_opt;
+      para_0 = para_opt;
+    }
 
     for (int i = 0; i < nlimit; i++) { // Inner loop, no. of repeatitions depends on the break criteria or on nlimit if no break criterion stops the loop.
       // Changing the variables
