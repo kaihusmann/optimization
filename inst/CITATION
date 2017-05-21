@@ -1,0 +1,13 @@
+citHeader("To cite optimization in publications use:")
+
+citEntry(entry = "Manual",
+         title = "optimization: Flexible optimizer with numerous input specifications. R package version 1.0-4",
+         author = c(
+                     person("Kai", "Husmann",       email = "khusman1@gwdg.de", role = "cre"),
+                     person("Alexander", "Lange", role = "aut")
+                   ),
+         year = "2017",
+         textVersion =
+           paste("Kai Husmann, Alexander Lange (2016).",
+                 "optimization: Flexible optimizer with numerous input specifications. R package version 1.0-4")
+)
