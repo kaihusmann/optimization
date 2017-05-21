@@ -2,7 +2,7 @@ Package: optimization
 Type: Package
 Title: Flexible Optimization
 Version: 1.0-4
-Date: 2017-03-17
+Date: 2017-05-21
 Author: Kai Husmann and Alexander Lange
 Maintainer: Kai Husmann <khusman1@uni-goettingen.de>
 Description: Flexible optimizer with numerous input specifications. It allows a very detailed parameterization and is therefore useful for specific and complex loss functions, like functions with discrete parameter space. Also visualization tools for validation and analysis of the convergence are included.
