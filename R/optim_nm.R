@@ -160,8 +160,14 @@ optim_nm <- function(fun, k = 0, start, maximum = FALSE, trace = FALSE, alpha = 
 
     simplex <-  simplex[order(simplex[, 1]), ] # ordering simplex according to function values
     param <- simplex[, -1] # extracting the parameters from simplex
-    kparam <- param[-(k + 1), ] # extracting the k best vertices from simplex
-    M <- colMeans(kparam)  # calculating the mean of the k best points
+    if(k > 1){
+      kparam <- param[-(k + 1), ] # extracting the k best vertices from simplex
+      M <- colMeans(kparam)  # calculating the mean of the k best points
+    }else{
+      kparam <- param[-(k + 1)] # extracting the k best vertices from simplex
+      M <- kparam  # calculating the mean of the k best points
+    }
+    
     End <- sqrt(sum((simplex[, 1] - fun(M)) ^ 2) / (k + 1)) # determine the exit out of the loop if a certain accuracy is reache
     counter <- 0
 
@@ -178,8 +184,13 @@ optim_nm <- function(fun, k = 0, start, maximum = FALSE, trace = FALSE, alpha = 
 
       simplex <- simplex[order(simplex[, 1]), ] # ordering simplex according to function values
       param <- simplex[, -1] # extracting the parameters from simplex
-      kparam <- param[-(k + 1), ] # extracting the k best vertices from simplex
-      M <- colMeans(kparam) # calculating the mean of the k best points
+      if(k > 1){
+        kparam <- param[-(k + 1), ] # extracting the k best vertices from simplex
+        M <- colMeans(kparam)  # calculating the mean of the k best points
+      }else{
+        kparam <- param[-(k + 1)] # extracting the k best vertices from simplex
+        M <- kparam  # calculating the mean of the k best points
+      }
       counter <- counter + 1 # counts number of iterations
 
       if (trace == TRUE & counter >= 2) {
