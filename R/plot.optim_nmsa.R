@@ -18,7 +18,7 @@ plot.optim_nmsa <- function (x, type = "convergence", lower = NA, upper = NA, ..
          main = "", xlab = "", ylab = "", ...)
     a1 <- axis(1,  cex.axis = 0.9, lwd = 0, lwd.ticks = 1) # adds axes scaling manually according to the trace values
     a2 <- axis(2, cex.axis = 0.9, las = 1, lwd = 0, lwd.ticks = 1)
-    mtext("function value", side = 2, line = 2.5, las= 3) ; mtext("number of iteration", side = 1, line = 2, las = 1)
+    mtext("function value", side = 2, line = 2.5, las= 3) ; mtext("iteration", side = 1, line = 2, las = 1)
 
     abline(h = a2, lty = 2, lwd = 1, col =  grey.colors(1, 0.8))
     abline(v = a1, lty = 2, lwd = 1, col =  grey.colors(1, 0.8)) # adds a grid to the plot

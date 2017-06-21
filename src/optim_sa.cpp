@@ -30,6 +30,7 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
   double savet = 0;
   int ac = 0;
   double loss_i = 0;
+  bool firsttemp = true;
   // Init trace
   vector<int> trace_n_outer;
   vector<double> trace_loss;
@@ -42,27 +43,34 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
   vector< vector<double> > trace_rf;
 
   // The outer while loop: Number of repeatitions depends on cooling function and the temp. limit.
-  while (temp > t_min){
-
+  while (temp > t_min) {
     // Initializing and resetting variables inside the while loop
     int goodcounter = 0;
     int n_inner = 0;
     n_outer++;
-
     std::fill(n_oob.begin(), n_oob.end(), 0);
 
+    // If the tzemperature is < 1 for the first time, the temp. optimum is overwritten by the global optimum. Since traps cannot be left (practically) for
+    // t < 1 after this time point only accuracy is relevant.
+    if(temp <= 2 && firsttemp) {
+      // tbd. r could be reduced at this point
+      firsttemp = false;
+      loss_0 = loss_opt;
+      para_0 = para_opt;
+    }
+
     for (int i = 0; i < nlimit; i++) { // Inner loop, no. of repeatitions depends on the break criteria or on nlimit if no break criterion stops the loop.
-      // Changing the parameters
+      // Changing the variables
       n_inner++;
-      if(!vf_user){ // Variation of the parameters...
+      if(!vf_user){ // Variation of the variables...
         para_i = var_funcc(para_0, fun_length, rf); // ...by the default function
       } else {
         para_i = var_func(para_0, fun_length, rf, temp); // ...by a user declared function. This is an SEXP. The algorithm is therefore much slower with it.
       }
 
-      // Counting the parameters which are out of bounds and change them.
-      for(int j = 0; j < fun_length; j++){
-        if(para_i[j] < lower[j] || para_i[j] > upper[j]){
+      // Counting the variables which are out of bounds and change them.
+      for(int j = 0; j < fun_length; j++) {
+        if(para_i[j] < lower[j] || para_i[j] > upper[j]) {
           n_oob[j]++;
           // Generate new values for the variable until it is within the boundaries.
           int emergency_stop = 0;
@@ -70,7 +78,7 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
             emergency_stop++;
             NumericVector temp_para_i(1);
 
-            if(!vf_user){ // Variation of the parameters.
+            if(!vf_user) { // Variation of the variables.
               NumericVector para_0_j(1);
               para_0_j = para_0[j];
               NumericVector rf_j(1);
@@ -101,7 +109,7 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
         loss_0 = loss_i;
         para_0 = para_i;
       } else{ // This is the difference between Sim. Ann. and other Algorithms. It ist the prob. of accepting the worse loss.
-        // If a loss_i is not defined (e. g. due to restrictions of the loss function [NA in ther R function]), the if connot be true
+        // If a loss_i is not defined (e. g. due to restrictions of the loss function [NA in ther R function]), the if cannot be true
         // loss_0 and para_0 are thus never updated with undefined values.
 
         if (R::runif(0, 1) < exp (- fabs (delta) / (k * temp) )) {
@@ -109,13 +117,24 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
           para_0 = para_i;
         }
       }
-      if (loss_0 < loss_opt) {
-        goodcounter++;
-        loss_opt = loss_0;
-        para_opt = para_0;
-        savei = n_outer;
-        savet = temp;
+      if(maximization) {
+        if (loss_0 > loss_opt) {
+          goodcounter++;
+          loss_opt = loss_0;
+          para_opt = para_0;
+          savei = n_outer;
+          savet = temp;
+        }
+      } else {
+        if (loss_0 < loss_opt) {
+          goodcounter++;
+          loss_opt = loss_0;
+          para_opt = para_0;
+          savei = n_outer;
+          savet = temp;
+        }
       }
+
       // Check for break criterions.
       if (goodcounter > maxgood) {break;}
       if (fabs(loss_0 - loss_opt) < ac_acc){
@@ -147,14 +166,14 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
     temp = temp * r; // Temperature reduction.
 
     // Calculation of rf for the next iteration step according to the ratio of random values out of bounds (Corana et al. 1987).
-    if (dyn_rf == true){
+    if (dyn_rf == true) {
       NumericVector ratio_noob (n_oob.size());
-      for(int j = 0; j < n_oob.size(); j++){
+      for(int j = 0; j < n_oob.size(); j++) {
         ratio_noob[j] = ( (double) n_inner - (double) n_oob[j]) / (double) n_inner;
         if (ratio_noob[j] < 0.4 || ratio_noob[j] > 0.6) {
           if (ratio_noob[j] < 0.4) {
             rf[j] = rf[j] * (1.0 / (1.0 + 2.0 * ((0.4 - (double) ratio_noob[j]) / 0.4)));
-          }else{
+          } else {
             rf[j] = rf[j] * (1.0 + (2.0 * (( (double) ratio_noob[j] - 0.6) / 0.4)));
           }
         }

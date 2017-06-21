@@ -1,2 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+<<<<<<< HEAD
+=======
+^cran-comments\.md$
+>>>>>>> 8621193fb88cd13fba924e0b8b69fe855d48e00f

@@ -1,7 +1,7 @@
 \name{optim_sa}
 \alias{optim_sa}
 \title{
-Multi-Purpose Optimization with Simulated Annealing
+Flexible Optimization with Simulated Annealing
 }
 \description{
 Random search optimization method with systematic component that searches the global optimum. The loss function is allowed to be non-linear, non-differentiable and multimodal. Undefined responses are allowed as well.
