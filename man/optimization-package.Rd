@@ -11,7 +11,7 @@
 Package: optimization
 Type:    Package
 Version: 1.0-1
-Date:    2016-11-28
+Date:    2017-06-28
 License: GPL-2
 }
 \author{

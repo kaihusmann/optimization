@@ -1,11 +1,11 @@
 ---
 title: "cran-comments"
 author: "Kai Husmann, Alexander Lange"
-date: "21 May 2017"
+date: "28 June 2017"
 ---
 
 ## Test environments
-Kubuntu 16.04 (64-bit)
+Ubuntu 16.04 LTS (64-bit)
 Windows Server 2008 (64-bit)
 
 ## R CMD check results
