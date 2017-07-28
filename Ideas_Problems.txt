@@ -1,0 +1,6 @@
+Ideas:
+Enable passing further function arguments additional to x
+
+Problems:
+Restriction rounding appears to be problematic. Variables expressions of x.1 aresotimes appear when x is set as maximum.
+NA Problem of the first iteration. If the init combination is NA, the optimizatiomn result is also NA.
