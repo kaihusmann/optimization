@@ -10,7 +10,7 @@
 \details{
 Package: optimization
 Type:    Package
-Version: 1.0-1
+Version: 1.0-5
 Date:    2017-06-28
 License: GPL-2
 }
