@@ -42,7 +42,7 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
   vector<double> row_rf;
   vector< vector<double> > trace_rf;
 
-  // The outer while loop: Number of repeatitions depends on cooling function and the temp. limit.
+  // The outer while loop: Number of repetitions depends on cooling function and the temp. limit.
   while (temp > t_min) {
     // Initializing and resetting variables inside the while loop
     int goodcounter = 0;
@@ -50,8 +50,7 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
     n_outer++;
     std::fill(n_oob.begin(), n_oob.end(), 0);
 
-    // If the tzemperature is < 1 for the first time, the temp. optimum is overwritten by the global optimum. Since traps cannot be left (practically) for
-    // t < 1 after this time point only accuracy is relevant.
+    // If the tzemperature is < 2 for the first time, the temp. optimum is overwritten by the global optimum. Since traps cannot be left (practically) for
     if(temp <= 2 && firsttemp) {
       // tbd. r could be reduced at this point
       firsttemp = false;
@@ -59,7 +58,7 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
       para_0 = para_opt;
     }
 
-    for (int i = 0; i < nlimit; i++) { // Inner loop, no. of repeatitions depends on the break criteria or on nlimit if no break criterion stops the loop.
+    for (int i = 0; i < nlimit; i++) { // Inner loop, no. of repetitions depends on the break criteria or on nlimit if no break criterion stops the loop.
       // Changing the variables
       n_inner++;
       if(!vf_user){ // Variation of the variables...

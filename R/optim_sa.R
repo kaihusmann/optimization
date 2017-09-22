@@ -71,7 +71,13 @@ optim_sa <- function (fun, start, maximization = FALSE, trace = FALSE ,lower, up
   ratio_noob   <- rep(0, fun_length) # Ratio between iterations of parameters NOT out of bounds and total number of iterations in the inner loop.
   vf_user      <- FALSE # Bool variable: Is there a user declared variance function?
 
-  ifelse(maximization, loss_opt <- -Inf, loss_opt <- +Inf)
+  # The objective result at start.
+  if (is.na(fun(start))) {
+    stop ("The objective result at initial variables combination must be valid.")
+  } else {
+    loss_opt <- fun(start)
+  }
+
   if (trace) {
     trace_array <- matrix(nrow = 0, ncol = 5 + fun_length, dimnames = list(character (0),
                                                                            c("iteration_outer",
