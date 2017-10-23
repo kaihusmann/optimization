@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // main_loop
 List main_loop(double temp, double t_min, double r, int fun_length, int nlimit, NumericVector para_0, NumericVector para_i, Function var_func, bool vf_user, bool trace, NumericVector rf, NumericVector lower, NumericVector upper, Function fun, double loss_0, double k, double loss_opt, NumericVector para_opt, bool dyn_rf, double maxgood, double ac_acc, int stopac, bool maximization);
-RcppExport SEXP optimization_main_loop(SEXP tempSEXP, SEXP t_minSEXP, SEXP rSEXP, SEXP fun_lengthSEXP, SEXP nlimitSEXP, SEXP para_0SEXP, SEXP para_iSEXP, SEXP var_funcSEXP, SEXP vf_userSEXP, SEXP traceSEXP, SEXP rfSEXP, SEXP lowerSEXP, SEXP upperSEXP, SEXP funSEXP, SEXP loss_0SEXP, SEXP kSEXP, SEXP loss_optSEXP, SEXP para_optSEXP, SEXP dyn_rfSEXP, SEXP maxgoodSEXP, SEXP ac_accSEXP, SEXP stopacSEXP, SEXP maximizationSEXP) {
+RcppExport SEXP _optimization_main_loop(SEXP tempSEXP, SEXP t_minSEXP, SEXP rSEXP, SEXP fun_lengthSEXP, SEXP nlimitSEXP, SEXP para_0SEXP, SEXP para_iSEXP, SEXP var_funcSEXP, SEXP vf_userSEXP, SEXP traceSEXP, SEXP rfSEXP, SEXP lowerSEXP, SEXP upperSEXP, SEXP funSEXP, SEXP loss_0SEXP, SEXP kSEXP, SEXP loss_optSEXP, SEXP para_optSEXP, SEXP dyn_rfSEXP, SEXP maxgoodSEXP, SEXP ac_accSEXP, SEXP stopacSEXP, SEXP maximizationSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
