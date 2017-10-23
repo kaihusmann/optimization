@@ -1,7 +1,7 @@
 ---
 title: "cran-comments"
 author: "Kai Husmann, Alexander Lange"
-date: "28 June 2017"
+date: "20 October 2017"
 ---
 
 ## Test environments
