@@ -150,7 +150,7 @@ optim_sa <- function (fun, start, maximization = FALSE, trace = FALSE ,lower, up
   #----------------#
 
   # Calling the Cpp source
-  result <- .Call('optimization_main_loop',
+  result <- .Call('_optimization_main_loop',
               temp = temp,
               t_min = t_min,
               r = r,
