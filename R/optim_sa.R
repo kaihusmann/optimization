@@ -54,7 +54,7 @@ optim_sa <- function (fun, start, maximization = FALSE, trace = FALSE ,lower, up
   ac_acc  <- con$ac_acc
 
 
-  # Declaration of Intern variables:
+  # Declaration of intern variables:
   fun_length   <- length(start) # Number of parameters of loss function.
   temp         <- t0 # Starting temperature.
   para_0       <- start # Storing vector for the current parameter combination. Initialy with starting values.
@@ -128,9 +128,9 @@ optim_sa <- function (fun, start, maximization = FALSE, trace = FALSE ,lower, up
   # The user can choose wheather rf is a scalar or a vector. A scalar will be extended (repeated) to the required length.
   # A vector of wrong length conditions a warning message and only the first entry is considered.
   if (length(rf) == 1) {
-    rf <- rep(rf,fun_length)
+    rf <- rep(rf, fun_length)
   } else {
-      if (!length (rf) == fun_length) {
+      if (!length(rf) == fun_length) {
         rf <- rep(rf[1], fun_length)
         warning ("rf was of wrong length. Only first value was conisidered.", call. = FALSE)
         }

@@ -149,9 +149,9 @@ List main_loop (double temp, double t_min, double r, int fun_length, int nlimit,
       trace_n_outer.push_back(n_outer);
       trace_loss.push_back(loss_0);
 
-      for(k = 0; k < fun_length; k++) {
-        row.push_back((double)para_0[k]);
-        row_rf.push_back((double)rf[k]);
+      for(int l = 0; l < fun_length; l++) {
+        row.push_back((double)para_0[l]);
+        row_rf.push_back((double)rf[l]);
       }
       trace_para.push_back(row);
       row.erase (row.begin(), row.end());
