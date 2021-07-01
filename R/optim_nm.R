@@ -104,7 +104,7 @@ optim_nm <- function(fun, k = 0, start, maximum = FALSE, trace = FALSE, alpha = 
         trace_array <- rbind(trace_array, c(counter + 1, simplex[1], simplex[1, -1])) # writing trace for visulaization
       }
 
-      R <- M + alpha * (M - simplex[k + 1, c(2:(k + 1))])  # Reflection
+      R <- as.numeric(M + alpha * (M - simplex[k + 1, c(2:(k + 1))]))  # Reflection
       Ry <- fun(R)
 
       if (Ry > simplex[k, 1]) {  # case 1: Reflection or Expension (correct direction)
@@ -167,7 +167,7 @@ optim_nm <- function(fun, k = 0, start, maximum = FALSE, trace = FALSE, alpha = 
       kparam <- param[-(k + 1)] # extracting the k best vertices from simplex
       M <- kparam  # calculating the mean of the k best points
     }
-    
+
     End <- sqrt(sum((simplex[, 1] - fun(M)) ^ 2) / (k + 1)) # determine the exit out of the loop if a certain accuracy is reache
     counter <- 0
 
