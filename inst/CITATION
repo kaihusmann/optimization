@@ -3,7 +3,7 @@ citHeader("To cite the package in publications please use:")
 citEntry(entry = "Manual",
          title = "The R Package optimization: Flexible Global Optimization with Simulated-Annealing",
          author = c(
-                     person("Kai", "Husmann",       email = "khusman1@gwdg.de", role = "cre"),
+                     person("Kai", "Husmann",       email = "kai.husmann@uni-goettingen.de", role = "cre"),
                      person("Alexander", "Lange", role = "aut"),
                      person("Elmar", "Spiegel", role = "aut")
                    ),

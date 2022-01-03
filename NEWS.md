@@ -16,4 +16,4 @@ output:
 20-10-17: Vignette added
 
 # optimization 1.0-8
-13-08-19: Help file modified; Vignette modified
+03-01-21: Help file modified; Vignette updated; minor bugfixes
