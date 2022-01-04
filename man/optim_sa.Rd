@@ -71,7 +71,7 @@ optim_sa(fun, start, maximization = FALSE, trace = FALSE,
 
 }
 \details{
-Simulated Annealing is an optimization algorithm for solving complex functions that may have several optima. The method is composed of a random and a systematic component. Basically, it randomly modifies the variables combination \code{n_limit} times to compare their response values. Depending on the temperature and the constant \code{k}, there is also a likelihood of choosing variables combinations with worse response. There is thus a time-decreasing likelihood of leaving local opima. The Simulated Annealing Optimization method is therefore advantageous for multimodal functions. Undefined response values (NA) are allowed as well. This can be useful for loss functions with variables restrictions. The high number of parameters allows a very flexible parameterization. \code{optim_sa} is able to solve mathematical formulas as well as complex rule sets.
+Simulated Annealing is an optimization algorithm for solving complex functions that may have several optima. The method is composed of a random and a systematic component. Basically, it randomly modifies the variables combination \code{n_limit} times to compare their response values. Depending on the temperature and the constant \code{k}, there is also a likelihood of choosing variables combinations with worse response. There is thus a time-decreasing likelihood of leaving local optima. The Simulated Annealing Optimization method is therefore advantageous for multimodal functions. Undefined response values (NA) are allowed as well. This can be useful for loss functions with variables restrictions. The high number of parameters allows a very flexible parameterization. \code{optim_sa} is able to solve mathematical formulas as well as complex rule sets.
 
 The performance therefore highly depends on the settings. It is indispensable to parameterize the algorithm carefully. The control list is pre-parameterized for loss functions of medium complexity. To improve the performance, the settings should be changed when solving relatively simple functions (e. g. three dimensional multimodal functions). For complex functions the settings should be changed to improve the accuracy. Most important parameters are \code{nlimit},  \code{r} and \code{t0}.
 
@@ -114,7 +114,7 @@ Corana, A., Marchesi, M., Martini, C. and Ridella, S. (1987), Minimizing Multimo
 
 Kirkpatrick, S., Gelatt, C. D. and Vecchi, M. P. (1983). Optimization by Simulated Annealing. Science, 220(4598):671-680.
 
-Pronzato, L., Walter, E., Venot, A. and Lebruchec, J.-F. (1984). A general-purpose global optimizer: Implimentation and applications. Mathematics and Computers in Simulation, 26(5):412-422.
+Pronzato, L., Walter, E., Venot, A. and Lebruchec, J.-F. (1984). A general-purpose global optimizer: Implementation and applications. Mathematics and Computers in Simulation, 26(5):412-422.
 }
 \author{
 Kai Husmann

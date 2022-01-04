@@ -43,7 +43,7 @@
   A positive scalar which indicates the size of the shrinked simplex. It is usually half as high as alpha. It must be smaller than \code{alpha}.
   }
   \item{tol}{
-  A positive scaler describing the tolerance at which the distances in between the function responses of the simplex vertices are close enough to zero to terminate the algorithm.
+  A positive scalar describing the tolerance at which the distances in between the function responses of the simplex vertices are close enough to zero to terminate the algorithm.
   }
   \item{exit}{
   A positive scalar giving the maximum number of iterations the algorithm is allowed to take. It is used to prevent infinite loops. In case of optimizing functions with higher dimensions it is quite likely that the algorithm needs more than 500 iterations. The value should therefore be adjusted to the specific optimization problem.
@@ -91,7 +91,7 @@ Gao, F. and Han, L. (2012). Implementing the nelder-mead simplex algorithm
 with adaptive parameters. Computational Optimization and Applications, 51(1):259
 277.
 
-Geiger, C. and Kanzow, C. (1999). Das nelder-mead-verfahren. Numerische
+Geiger, C. and Kanzow, C. (1999). Das Nelder-Mead-Verfahren. Numerische
 Verfahren zur Loesung unregestrierter Optimierungsaufgaben.
 
 Nelder, J. and Mead, R. (1965). A simplex method for function minimization.
