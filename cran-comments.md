@@ -5,8 +5,9 @@ date: "15 February 2022"
 ---
 
 ## Test environments
-Ubuntu 20.04 LTS (64-bit)
-Windows Server 2008 (64-bit)
+Ubuntu 20.04 LTS (64-bit), R-release
+Windows Server 2008 (64-bit), R-release
+Windows Server 2022, R-devel
 
 ## R CMD check results
 There were no ERRORS, WARNINGS or NOTES
