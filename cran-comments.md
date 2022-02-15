@@ -14,5 +14,5 @@ There were no ERRORS, WARNINGS or NOTES
 
 ## For your Information
 
-We received the message from Prof Ripley that the sample.int function is misused in one example. We dismissed the respective example completely.
+We received the message from Professor Ripley that the sample.int function is misused in one example. We dismissed the respective example completely.
 
