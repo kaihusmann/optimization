@@ -17,3 +17,6 @@ output:
 
 # optimization 1.0-8
 03-01-21: Help file modified; Vignette updated; minor bugfixes
+
+# optimization 1.0-9
+15-02-21: Examples optim_sa corrected and updated

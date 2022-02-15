@@ -184,36 +184,4 @@ optim_sa(fun = ho,
          )
 )
 
-#### Himmelblau's function
-# 4 minima at
-  # f(3, 2) = 0
-  # f(-2.804, -3.131) = 0
-  # f(-3.779, -3.283) = 0
-  # f( 3.584, -1.848) = 0
-
-hi <- function(x){
-  (x[1]**2 + x[2] - 11)**2 + (x[1] + x[2]**2 -7)**2
-}
-
-# Random start values. Example arguments for integer programming.
-# Only the integer solution will be found.
-
-var_func_int <- function(para_0, fun_length, rf, temp = NA){
-  ret_var_func <- para_0 + sample.int(rf, fun_length, replace = TRUE) *
-  ((rbinom(fun_length, 1, 0.5) * -2) + 1)
-  return (ret_var_func)
-}
-
-optim_sa(fun = hi,
-         start = round(c(runif(2, min = -1, max = 1))),
-                trace = TRUE,
-                lower = c(-4, -4),
-                upper=c(4, 4),
-                control = list(t0 = 1000,
-                               nlimit = 1500,
-                               r = 0.8,
-                               vf = var_func_int,
-                               rf = 3
-                )
-)
 }

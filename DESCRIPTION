@@ -2,7 +2,7 @@ Package: optimization
 Type: Package
 Title: Flexible Optimization of Complex Loss Functions with State and Parameter
   Space Constraints
-Version: 1.0-8
+Version: 1.0-9
 Authors@R: c(
   person("Kai", "Husmann", role=c("aut", "cre"), 
          email="kai.husmann@uni-goettingen.de"),
